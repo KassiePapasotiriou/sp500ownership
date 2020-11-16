@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: Exploration of the S&P 500 stock ownership between Aug 2018 - Aug 2020
+author: Jingwen Du, Kassiani Papasotiriou
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---

@@ -5,3 +5,12 @@ missing-values
 results
 interactive-component
 conclusion
+raw-data
+mi-package
+explore-data
+missing-values-per-row
+frequency-of-patterns
+interpreting-the-results
+dealing-with-missing-values
+overview-of-missing-values
+visualizing-missing-values-per-row

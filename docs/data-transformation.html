@@ -24,7 +24,7 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
-<meta name="date" content="2020-11-16" />
+<meta name="date" content="2020-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,8 +73,19 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#robin-track-data"><i class="fa fa-check"></i><b>3.1</b> Robin Track data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#sp500-stock-prices-and-volume"><i class="fa fa-check"></i><b>3.2</b> S&amp;P500 stock prices and volume</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#vix-and-mcap"><i class="fa fa-check"></i><b>3.3</b> Vix and Mcap</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#combined-everything-together"><i class="fa fa-check"></i><b>3.4</b> Combined Everything together</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#overview-of-missing-values"><i class="fa fa-check"></i><b>4.1</b> Overview of missing values</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#visualizing-missing-values-per-row"><i class="fa fa-check"></i><b>4.2</b> Visualizing missing values per row</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#frequency-of-patterns"><i class="fa fa-check"></i><b>4.3</b> Frequency of patterns</a></li>
+<li class="chapter" data-level="4.4" data-path="missing-values.html"><a href="missing-values.html#interpreting-the-results"><i class="fa fa-check"></i><b>4.4</b> Interpreting the results</a></li>
+<li class="chapter" data-level="4.5" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.5</b> Dealing with missing values</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -99,7 +110,28 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>In this Chapter we will go over the data transformations that we performed in order to combine the different data sources into one.</p>
+<p>We performed the data cleaning in three Python notebooks that can be found under the <code>data/</code> folder. Here we will provide an overview of what we have done. Please take a look at the notebooks if you need further detail.</p>
+<div id="robin-track-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Robin Track data</h2>
+<p>As we mentioned in the Data Sources section, we got the number of users holding each company stock per day from Robintrack.</p>
+<p>The Robintrack data came in a folder that contained a csv for each company ticker. We read each csv, selected the data for August 2018 - August 2020 and combined them to a dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>users_holding</code>.</p>
+</div>
+<div id="sp500-stock-prices-and-volume" class="section level2">
+<h2><span class="header-section-number">3.2</span> S&amp;P500 stock prices and volume</h2>
+<p>Furthermore, we got the daily Closing Price and the total Volume traded between August 2018 - August 2020 for each company by scraping yahoo finance.</p>
+<p>More specifically, for each of the S&amp;P500 tickers, we used the python package <code>pandas_datareader</code> to read those values from yahoo finance for the range of dates that we are interested in. We combined those dataframes and resulting in one large dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>Adj.Close</code> and <code>Volume</code>.</p>
+</div>
+<div id="vix-and-mcap" class="section level2">
+<h2><span class="header-section-number">3.3</span> Vix and Mcap</h2>
+<p>We got both Vix and Market cap from Bloomberg Terminal. For Market cap we had to select the tickers we are interested since the raw file contained other companies which are not included in the S&amp;P500 list. The the volatility index was in ready-to-use format since it contained the index value by date.</p>
+</div>
+<div id="combined-everything-together" class="section level2">
+<h2><span class="header-section-number">3.4</span> Combined Everything together</h2>
+<p>We combined everything together in one large dataframe. We performed an outter join on <code>Date</code> and <code>Symbol</code> which resulted in our final dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>users_holding</code>,<code>Adj.Close</code>, <code>Volume</code>, <code>Mcap</code>, <code>vix_Adj_close</code>.</p>
+<p>We also performed a few sanity checks such as making sure that we are only keeping the trading days between August 2018 - August 2020 and that for each date we have all tickers.</p>
 
+</div>
 </div>
             </section>
 

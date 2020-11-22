@@ -2,13 +2,15 @@
 
 In this Chapter we will go over the data transformations that we performed in order to combine the different data sources into one.
 
-We performed the data cleaning in three Python notebooks that can be found under the `data/` folder. Here we will provide an overview of what we have done. Please take a look at the notebooks if you need further detail.
+We performed the data cleaning in three Python notebooks that can be found under the `docs/data/preprocessing` folder. Here we will provide an overview of what we have done. Please take a look at the notebooks if you need further detail.
 
-## Robin Track data
+## Robintrack data
 
 As we mentioned in the Data Sources section, we got the number of users holding each company stock per day from Robintrack.
 
 The Robintrack data came in a folder that contained a csv for each company ticker. We read each csv, selected the data for August 2018 - August 2020 and combined them to a dataframe with the following columns: `Date`, `Sybol`, `users_holding`.
+
+(Code can be found in Notebook `docs/data/preprocessing/Robintrack.ipynb`)
 
 
 ## S&P500 stock prices and volume
@@ -16,7 +18,9 @@ Furthermore, we got the daily Closing Price and the total Volume traded between 
 
 More specifically, for each of the S&P500 tickers, we used the python package `pandas_datareader` to read those values from yahoo finance for the range of dates that we are interested in. We combined those dataframes and resulting in one large dataframe with the following columns: `Date`, `Sybol`, `Adj.Close` and `Volume`.
 
-## Vix and Mcap
+(Code can be found in Notebook `docs/data/preprocessing/sp500.ipynb`)
+
+## VIX and Mcap
 We got both Vix and Market cap from Bloomberg Terminal. For Market cap we had to select the tickers we are interested since the raw file contained other companies which are not included in the S&P500 list. The the volatility index was in ready-to-use format since it contained the index value by date.
 
 ## Combined Everything together
@@ -24,6 +28,6 @@ We combined everything together in one large dataframe. We performed an outter j
 
 We also performed a few sanity checks such as making sure that we are only keeping the trading days between  August 2018 - August 2020 and that for each date we have all tickers.
 
-
+(Code can be found in Notebook `docs/data/preprocessing/combine.ipynb`)
 
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
-<meta name="date" content="2020-11-19" />
+<meta name="date" content="2020-11-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,7 +73,12 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
-<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#robintrack-data"><i class="fa fa-check"></i><b>3.1</b> Robintrack data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#sp500-stock-prices-and-volume"><i class="fa fa-check"></i><b>3.2</b> S&amp;P500 stock prices and volume</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#vix-and-mcap"><i class="fa fa-check"></i><b>3.3</b> VIX and Mcap</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#combined-everything-together"><i class="fa fa-check"></i><b>3.4</b> Combined Everything together</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a><ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#overview-of-missing-values"><i class="fa fa-check"></i><b>4.1</b> Overview of missing values</a></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#visualizing-missing-values-per-row"><i class="fa fa-check"></i><b>4.2</b> Visualizing missing values per row</a></li>
@@ -108,24 +113,26 @@
 <p>In this section we will explore the missing values in our dataset and offer some hypotheses on why this might be happening. We will also investigate if we have missing patterns and try to understand the cause behind that.</p>
 <div id="overview-of-missing-values" class="section level2">
 <h2><span class="header-section-number">4.1</span> Overview of missing values</h2>
-<p>First we read in the raw data. We haven’t performed any tranformations to the dataframe apart from combining from different datasources.</p>
-<p>In order to start exploring missing values we will look at the ratio of the number of NAs in each column and row:</p>
+<p>First we read in the raw data. We haven’t performed any tranformations to the dataframe apart from combining the different datasources.</p>
+<p>In order to start exploring missing values we will look at the ratio of the number of NAs in each column:</p>
 <pre><code>##          Date        Symbol     Adj.Close        Volume users_holding 
 ##   0.000000000   0.000000000   0.003158734   0.003158734   0.062136036 
 ## vix_Adj_close          Mcap 
 ##   0.003112053   0.022546827</code></pre>
-<p>We can see immediately that we have a very low percentage in missing values. The columns in our dataframe that have the most missing entries are <code>Volume</code> and <code>users_holding</code> with around 5% and 6% missing values respectively.</p>
+<p>We can see immediately that we have a very low percentage in missing values. The columns in our dataframe that have the most missing entries are <code>Mcap</code> and <code>users_holding</code> with around 2% and 6% missing values respectively.</p>
 </div>
 <div id="visualizing-missing-values-per-row" class="section level2">
 <h2><span class="header-section-number">4.2</span> Visualizing missing values per row</h2>
-<p>One way of visualizing the missing patterns by row is by using the mi package. For the purposes of the visualization of this section, we first drop all rows that do not have missing values.</p>
-<p>Moreover, in order to be able to capture the variable level differences for each column, we have used a log transformation to the numeric columns of the dataframe. We used this transformation instead of Standardization because there are very big differences in values for each column which initally resulted in a single-color graph.</p>
+<p>One way of visualizing the missing patterns by row is by using the <strong>mi</strong> package. For the purposes of the visualization of this section, we first drop all rows that do not have missing values.</p>
+<p>In order to get a first idea of the shape of the missing values we can take a look at the following graph:</p>
 <pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
 ##  Please verify whether they are in fact logically distinct variables.
 ##      [,1]        [,2]    
 ## [1,] &quot;Adj.Close&quot; &quot;Volume&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/qplot1-1.png" width="1536" />
-In the above graph we can see that we have missing values appear on the <code>Adj.Close</code>, <code>Volume</code>, <code>users_holding</code>,<code>vix_Adj_close</code> and <code>Mcap</code> columns as expected. We can start seeing some different patterns. More specifically:</p>
+<p><img src="finalproj_files/figure-html/qplot1-1.png" width="480" /></p>
+<p>We realize that it is hard to to distinguish the variable level differences for each column. This is expected since the value for <code>Volume</code> has a big range of values which is not evenly spread.
+Instead, we would like to focus on the shapes of the missing patterns. In the above graph we can see that most missing values appear on the <code>users_holding</code> and <code>Mcap</code> columns and a combination of the two. Another block of missing values is formed with the following collums <code>Adj.Close</code>,<code>Volume</code>,<code>vix_Adj_close</code> and <code>users_holding</code>.</p>
+<p>Taking a more close look on those patterns:</p>
 <pre><code>##                                            Mcap 
 ##                                            4702 
 ##                                   users_holding 
@@ -136,25 +143,32 @@ In the above graph we can see that we have missing values appear on the <code>Ad
 ##                                              12 
 ## Adj.Close, Volume, users_holding, vix_Adj_close 
 ##                                             800</code></pre>
-<p>To summarize the above, we can see standalone missing values for <code>Mcap</code> and <code>users_holding</code> with the highest counts. we can then see a pattern when we are both missing <code>users_holding</code> and <code>Mcap</code>. Another pattern lies in missing <code>Adj.Close</code> and <code>Volume</code>. The last pattern we observe is missing all of the following: <code>Adj.Close</code>, <code>Volume</code>, <code>users_holding</code>,<code>vix_Adj_close</code></p>
+<p>To summarize the above:
+1. We can see standalone missing values for <code>users_holding</code> and <code>Mcap</code> with the highest counts.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>There is a pattern when both <code>users_holding</code> and <code>Mcap</code> are missing.</p></li>
+<li><p>Another pattern lies in missing <code>Adj.Close</code> and <code>Volume</code>.</p></li>
+<li><p>The last pattern we observe is missing all of the following: <code>Adj.Close</code>, <code>Volume</code>, <code>users_holding</code>,<code>vix_Adj_close</code>.</p></li>
+</ol>
 </div>
 <div id="frequency-of-patterns" class="section level2">
 <h2><span class="header-section-number">4.3</span> Frequency of patterns</h2>
-<p>We take another look at our missing patterns. Here, the rows represent a missing pattern and the columns represent the column level missing values.We have sorted the graph by most to least common missing pattern and the most to least common missing row.</p>
+<p>We take another look at our missing patterns. Here, the rows represent a pattern and the columns represent the column level missing values. We have sorted the graph by most to least common missing pattern and the most to least common missing row.</p>
 <p><img src="finalproj_files/figure-html/qplot2-1.png" width="576" /></p>
 </div>
 <div id="interpreting-the-results" class="section level2">
 <h2><span class="header-section-number">4.4</span> Interpreting the results</h2>
 <p><strong>Pattern 1</strong>: Missing <code>users_holding</code>:</p>
-<p>In our option there is not really intuition on why <code>users_holding</code> is missing. We assume that the Robintrack didn’t report this variable on certain days.(can improve this with plotting if it for days and stocks seeing if there is something there)</p>
+<p>In our opinion there is not really intuition on why <code>users_holding</code> is missing. We assume that the Robintrack didn’t report this variable on certain days.(can strengthen this by looking at days and companies). We assume that this value is missing completely at Random.</p>
 <p><strong>Pattern 2</strong>: Missing <code>Mcap</code>:</p>
-<p>Similarly for <code>Mcap</code>, we assume it wasn’t reported on certain days for no specific reason.(can improve this with plotting if it for days and stocks seeing if there is something there)</p>
+<p>Similarly for <code>Mcap</code>. We assume that it is missing completely at Random.(can improve this with plotting if it for days and stocks seeing if there is something there)</p>
 <p><strong>Pattern 3</strong>: Missing <code>Mcap</code>and <code>users_holding</code>:
 A combination of the above two explanations.</p>
-<p><strong>Pattern 4</strong>: Missing <code>Adj.Close</code> and <code>Volume</code>:</p>
-<p>This missing pattern is also a little unusal. We would expect to have values for both <code>Adj.Close</code> and <code>Volume</code> since we have values for the VIX, Market Cap and users holding. Our assumption is that Yahoo Finance didn’t report these values. We confirmed this by comparing those missing dates against another source which had values for those dates.</p>
-<p><strong>Pattern 5</strong>: Missing <code>Adj.Close</code>, <code>Volume</code>, <code>users_holding</code> and<code>vix_Adj_close</code>:</p>
+<p><strong>Pattern 4</strong>: Missing <code>Adj.Close</code>, <code>Volume</code>, <code>users_holding</code> and<code>vix_Adj_close</code>:</p>
 <p>This is a more meaningful pattern. Our hypothesis is that those entries are missing at the same time because the company was not part of the S&amp;P500 on those specific dates. Note that a comapny can still report <code>Mcap</code> even if it is not listed in the S&amp;P500.</p>
+<p><strong>Pattern 5</strong>: Missing <code>Adj.Close</code> and <code>Volume</code>:</p>
+<p>Our assumption is that Yahoo Finance didn’t report these values. We have values for the VIX, Market Cap and users holding therefore we should also have values for <code>Adj.Close</code> and <code>Volume</code>.</p>
+<p>We confirmed our assumption by comparing those missing dates against another source which had the correct values for those dates.</p>
 </div>
 <div id="dealing-with-missing-values" class="section level2">
 <h2><span class="header-section-number">4.5</span> Dealing with missing values</h2>

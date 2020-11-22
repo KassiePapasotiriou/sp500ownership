@@ -1,3 +1,60 @@
+--- 
+title: Exploration of the S&P 500 stock ownership between Aug 2018 - Aug 2020
+author: Jingwen Du, Kassiani Papasotiriou
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+--- 
+title: Exploration of the S&P 500 stock ownership between Aug 2018 - Aug 2020
+author: Jingwen Du, Kassiani Papasotiriou
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Introduction
+
+
+<!--chapter:end:index.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Data sources
+
+
+<!--chapter:end:02-data.Rmd-->
+
+
+# Data transformation
+
+Placeholder
+
+
+## Robintrack data
+## S&P500 stock prices and volume
+## VIX and Mcap
+## Combined Everything together
+
+<!--chapter:end:03-cleaning.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
 # Missing values
 
 In this section we will explore the missing values in our dataset and offer some hypotheses on why this might be happening. We will also investigate if we have missing patterns and try to understand the cause behind that.
@@ -85,3 +142,42 @@ We confirmed our assumption by comparing those missing dates against another sou
 ## Dealing with missing values
 
 We decided to remove the rows that contained missing values.
+
+<!--chapter:end:04-missing.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Results
+
+<!--chapter:end:05-results.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Interactive component
+
+
+
+<!--chapter:end:06-interactive.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Conclusion
+
+
+<!--chapter:end:07-conclusion.Rmd-->
+

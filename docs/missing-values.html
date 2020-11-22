@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership between Aug 2018 - Aug 2020</title>
-  <meta name="description" content="Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership between Aug 2018 - Aug 2020" />
+  <title>Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020</title>
+  <meta name="description" content="Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership between Aug 2018 - Aug 2020" />
+  <meta property="og:title" content="Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership between Aug 2018 - Aug 2020" />
+  <meta name="twitter:title" content="Chapter 4 Missing values | Exploration of the S&amp;P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020" />
   
   
   
@@ -100,7 +100,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploration of the S&amp;P 500 stock ownership between Aug 2018 - Aug 2020</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Exploration of the S&amp;P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020</a>
           </h1>
         </div>
 
@@ -165,7 +165,7 @@ Instead, we would like to focus on the shapes of the missing patterns. In the ab
 <p><strong>Pattern 3</strong>: Missing <code>Mcap</code>and <code>users_holding</code>:
 A combination of the above two explanations.</p>
 <p><strong>Pattern 4</strong>: Missing <code>Adj.Close</code>, <code>Volume</code>, <code>users_holding</code> and<code>vix_Adj_close</code>:</p>
-<p>This is a more meaningful pattern. Our hypothesis is that those entries are missing at the same time because the company was not part of the S&amp;P500 on those specific dates. Note that a comapny can still report <code>Mcap</code> even if it is not listed in the S&amp;P500.</p>
+<p>This is a more meaningful pattern. Our hypothesis is that those entries are missing at the same time because the company was not part of the S&amp;P500 on those specific dates. Note we still have <code>Mcap</code> data because that is pulled from Bloomberg versus Yahoo Finance. Bloomberg can recognize a name change of ticker whereas Yahoo does not.</p>
 <p><strong>Pattern 5</strong>: Missing <code>Adj.Close</code> and <code>Volume</code>:</p>
 <p>Our assumption is that Yahoo Finance didn’t report these values. We have values for the VIX, Market Cap and users holding therefore we should also have values for <code>Adj.Close</code> and <code>Volume</code>.</p>
 <p>We confirmed our assumption by comparing those missing dates against another source which had the correct values for those dates.</p>

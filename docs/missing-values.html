@@ -24,7 +24,7 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
-<meta name="date" content="2020-11-22" />
+<meta name="date" content="2020-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,15 +124,21 @@
 <div id="visualizing-missing-values-per-row" class="section level2">
 <h2><span class="header-section-number">4.2</span> Visualizing missing values per row</h2>
 <p>One way of visualizing the missing patterns by row is by using the <strong>mi</strong> package. For the purposes of the visualization of this section, we first drop all rows that do not have missing values.</p>
-<p>In order to get a first idea of the shape of the missing values we can take a look at the following graph:</p>
+<p>Since we have almost 21k missing values we randomly subsampled the missing values dataframe to create a smaller one. In order to get a first idea of the shape of the missing values we can take a look at the following graph:</p>
+<pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
+##  Please verify whether they are in fact logically distinct variables.
+##      [,1]        [,2]           
+## [1,] &quot;Adj.Close&quot; &quot;Volume&quot;       
+## [2,] &quot;Adj.Close&quot; &quot;vix_Adj_close&quot;
+## [3,] &quot;Volume&quot;    &quot;vix_Adj_close&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/qplot1-1.png" width="480" /></p>
+<p>We can see that most missing values appear on the <code>users_holding</code> and <code>Mcap</code> columns and a combination of the two. Another block of missing values is formed with the following collums <code>Adj.Close</code>,<code>Volume</code>,<code>vix_Adj_close</code> and <code>users_holding</code>.</p>
+<p>We realize that since this is a random sub-sample of the dataframe and that there might be more missing patterns. Nevertheless, the above graph captures the strongest missing-value trends.</p>
+<p>Taking a closer look on those patterns:</p>
 <pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
 ##  Please verify whether they are in fact logically distinct variables.
 ##      [,1]        [,2]    
 ## [1,] &quot;Adj.Close&quot; &quot;Volume&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/qplot1-1.png" width="480" /></p>
-<p>We realize that it is hard to to distinguish the variable level differences for each column. This is expected since the value for <code>Volume</code> has a big range of values which is not evenly spread.
-Instead, we would like to focus on the shapes of the missing patterns. In the above graph we can see that most missing values appear on the <code>users_holding</code> and <code>Mcap</code> columns and a combination of the two. Another block of missing values is formed with the following collums <code>Adj.Close</code>,<code>Volume</code>,<code>vix_Adj_close</code> and <code>users_holding</code>.</p>
-<p>Taking a more close look on those patterns:</p>
 <pre><code>##                                            Mcap 
 ##                                            4702 
 ##                                   users_holding 

@@ -1,1 +1,100 @@
 # Results
+
+
+###how ownership change by industry sectors over certain time period
+
+```{r}
+library(GGally)
+library(ggplot2)
+library(palmerpenguins)
+
+data <-read.csv('docs/data/results/alluvial.csv')
+```
+
+```{r qplot51, fig.width=10, fig.height=6,message=FALSE}
+library(tidyverse)
+data$Date<-as.factor(data[,'Date'])
+# create the plot
+ggplot(data, aes(x = users_holding, y =fct_reorder2(Symbol, Date == '2020', 
+                                 users_holding, .desc=FALSE),color = Date)) +
+    geom_point() +
+    xlab("\nAverage users holding") +
+    ylab("Industry\n") +
+    ggtitle("Average yearly Stock Holiding  by industry\nAugust 2018 - August 2020") 
+```
+
+
+```{r qplot56, fig.width=6, fig.height=6,message=FALSE}
+library(vcd)
+mosaic <-read.csv('docs/data/results/mosaic.csv')
+mosaic$Founded_range<-factor(mosaic$Founded_range, levels=c("1784-1892","1894-1952","1954-2019"))
+mosaic$popularity<-factor(mosaic$popularity, levels=c("not_popular","normal","very_popular"))
+
+colors = c("grey95", "aliceblue", "cornflowerblue")
+vcd::mosaic(Founded_range~ popularity, direction = c("v","h") ,mosaic,
+            highlighting_fill = colors, gp_varnames = gpar(fontsize = 10, fontface = 1),gp_labels = gpar(fontsize = 8))
+```
+
+
+```{r qplot57, fig.width=19, fig.height=9,message=FALSE}
+# Libraries
+library(ggplot2)
+library(dplyr)
+library("tidyverse")
+library("ggridges")
+library(scales)
+library(lubridate)
+ridge <- read.csv('docs/data/results/ridge.csv')
+very_popular_ridge <- subset(ridge, ridge$popularity == 'very_popular')
+
+very_popular_ridge$Date <- as.Date(very_popular_ridge$Date)
+# Plot
+very_popular_ridge %>%
+  ggplot( aes(x=Date, y=users_holding, group=Symbol, color=Symbol)) +
+  geom_line() +  
+  scale_x_date(date_labels = "%b-%d-%Y", breaks = "2 month") + 
+  ggtitle("Daily stock user's holiding for the most popular S&P500 companies\nAugust 2018 - August 2020") +
+  theme( plot.title=element_text(size=20),
+        axis.text=element_text(size=14),
+         axis.title=element_text(size=15),
+         legend.title = element_text( size = 16),
+        legend.text = element_text(size = 14))
+```
+
+
+```{r qplot59, fig.width=19, fig.height=9, message=FALSE}
+very_popular_ridge %>%
+  ggplot( aes(x=Date, y=Adj.Close, group=Symbol, color=Symbol)) +
+  geom_line() +
+  scale_x_date(date_labels = "%b-%d-%Y", breaks = "2 month") +
+  ggtitle("Daily stock price for the most popular S&P500 companies\nAugust 2018 - August 2020") +
+  theme( plot.title=element_text(size=20),
+          axis.text=element_text(size=14),
+         axis.title=element_text(size=15),
+         legend.title = element_text( size = 16),
+        legend.text = element_text(size = 14))
+```
+
+
+```{r qplot58, fig.width=19, fig.height=9,message=FALSE}
+very_popular_ridge %>%
+  ggplot( aes(x=Date, y=Mcap, group=Symbol, color=Symbol)) +
+  geom_line() +  
+  scale_x_date(date_labels = "%b-%d-%Y", breaks = "2 month") + 
+  ggtitle("Daily Market Cap for the most popular S&P500 companies\nAugust 2018 - August 2020")  +
+  theme( plot.title=element_text(size=20),
+          axis.text=element_text(size=14),
+         axis.title=element_text(size=15),
+         legend.title = element_text( size = 16),
+        legend.text = element_text(size = 14))
+```
+
+
+```{r qplot60, fig.width=12, fig.height=6,message=FALSE}
+
+very_popular_ridge %>%
+  ggplot( aes(x=Date, y=vix_Adj_close)) +
+  geom_line() + 
+  ggtitle("Daily VIX\nAugust 2018 - August 2020") +
+  scale_x_date(date_labels = "%b-%d-%Y", breaks = "2 month")
+```

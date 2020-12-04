@@ -9,7 +9,7 @@ library(GGally)
 library(ggplot2)
 library(palmerpenguins)
 
-data <-read.csv('docs/data/final_df.csv')
+data <-read.csv('docs/data/missing/final_df.csv')
 ```
  
 In order to start exploring missing values we will look at the ratio of the number of NAs in each column:
@@ -21,26 +21,30 @@ We can see immediately that we have a very low percentage in missing values. The
 ## Visualizing missing values per row
 One way of visualizing the missing patterns by row is by using the **mi** package. For the purposes of the visualization of this section, we first drop all rows that do not have missing values. 
 
-In order to get a first idea of the shape of the missing values we can take a look at the following graph: 
+Since we have almost 21k missing values we randomly subsampled the missing values dataframe to create a smaller one. In order to get a first idea of the shape of the missing values we can take a look at the following graph: 
 ```{r qplot1, fig.width=5, fig.height=6,message=FALSE}
 library(mi)
 library(dplyr)
 library(BBmisc)
 
 missing_values <- data[rowSums(is.na(data)) > 0,]
-x2 <- missing_data.frame(missing_values)
+
+x2 <- missing_data.frame(sample_n(missing_values, 100))
 image(x2)
 ```
 
-We realize that it is hard to to distinguish the variable level differences for each column. This is expected since the value for `Volume` has a big range of values which is not evenly spread. 
-Instead, we would like to focus on the shapes of the missing patterns. In the above graph we can see that most  missing values appear on the `users_holding` and `Mcap` columns and a combination of the two. Another block of missing values is formed with the following collums `Adj.Close`,`Volume`,`vix_Adj_close` and ` users_holding`.
+ We can see that most  missing values appear on the `users_holding` and `Mcap` columns and a combination of the two. Another block of missing values is formed with the following collums `Adj.Close`,`Volume`,`vix_Adj_close` and ` users_holding`.
 
-Taking a more close look on those patterns:
-```{r}
-summary(x2@patterns)
+We realize that since this is a random sub-sample of the dataframe and that there might be more missing patterns. Nevertheless, the above graph captures the strongest missing-value trends.
+
+Taking a closer look on those patterns:
+```{r, message=FALSE}
+x3 <- missing_data.frame(missing_values)
+summary(x3@patterns)
 ```
 To summarize the above:
-1. We can see standalone missing values for  `users_holding` and ` Mcap`  with the highest counts. 
+
+1. We can see standalone missing values for `users_holding` and ` Mcap`  with the highest counts. 
 
 2. There is a pattern when both `users_holding` and ` Mcap` are missing.
 
@@ -53,7 +57,7 @@ To summarize the above:
 
 We take another look at our missing patterns. Here, the rows represent a pattern and the columns represent the column level missing values. We have sorted the graph by most to least common missing pattern and the most to least common missing row.
 
-```{r qplot2, fig.width=6, fig.height=5,message=FALSE}
+```{r qplot2, fig.width=6, fig.height=5, message=FALSE}
 library(extracat)
 extracat::visna(missing_values, sort = "b")
 ```
@@ -62,11 +66,11 @@ extracat::visna(missing_values, sort = "b")
 
 **Pattern 1**: Missing  `users_holding`:
 
-In our opinion there is not really intuition on why `users_holding` is missing. We assume that the Robintrack didn't report this variable on certain days.(can strengthen this by looking at days and companies). We assume that this value is missing completely at Random.
+In our opinion there is not really intuition on why `users_holding` is missing. We assume that the Robintrack didn't report this variable on certain days.We assume that this value is missing completely at Random.
 
 **Pattern 2**: Missing  `Mcap`:
 
-Similarly for `Mcap`. We assume that it is missing completely at Random.(can improve this with plotting if it for days and stocks seeing if there is something there) 
+Similarly for `Mcap`. We assume that it is missing completely at Random.
 
 **Pattern 3**: Missing `Mcap`and `users_holding`:
 A combination of the above two explanations.

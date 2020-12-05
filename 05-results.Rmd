@@ -18,10 +18,10 @@ In order explore the shifts in the most popular industries between 2018-2020, we
 
 ```{r qplot51, fig.width=10, fig.height=6,message=FALSE}
 library(tidyverse)
-cleveland$Date<-as.factor(cleveland[,'Date'])
+cleveland$Year<-as.factor(cleveland[,'Year'])
 # create the plot
-ggplot(cleveland, aes(x = users_holding, y =fct_reorder2(Symbol, Date == '2020', 
-                                 users_holding, .desc=FALSE),color = Date)) +
+ggplot(cleveland, aes(x = avg_users_holding, y =fct_reorder2(Symbol, Year == '2020', 
+                                 avg_users_holding, .desc=FALSE),color = Year)) +
     geom_point() +
     xlab("\nAverage users holding") +
     ylab("Industry\n") +

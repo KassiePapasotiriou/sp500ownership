@@ -9,7 +9,7 @@ library(GGally)
 library(ggplot2)
 library(palmerpenguins)
 
-data <-read.csv('docs/data/results/alluvial.csv')
+cleveland <-read.csv('docs/data/results/cleveland.csv')
 ```
 
 The first transformed dataframe the average user's stock holding per industry for 2018, 2019 and 2020. 
@@ -18,9 +18,9 @@ In order explore the shifts in the most popular industries between 2018-2020, we
 
 ```{r qplot51, fig.width=10, fig.height=6,message=FALSE}
 library(tidyverse)
-data$Date<-as.factor(data[,'Date'])
+cleveland$Date<-as.factor(cleveland[,'Date'])
 # create the plot
-ggplot(data, aes(x = users_holding, y =fct_reorder2(Symbol, Date == '2020', 
+ggplot(cleveland, aes(x = users_holding, y =fct_reorder2(Symbol, Date == '2020', 
                                  users_holding, .desc=FALSE),color = Date)) +
     geom_point() +
     xlab("\nAverage users holding") +
@@ -84,12 +84,12 @@ library("tidyverse")
 library("ggridges")
 library(scales)
 library(lubridate)
-ridge <- read.csv('docs/data/results/ridge.csv')
-very_popular_ridge <- subset(ridge, ridge$popularity == 'very_popular')
+data <- read.csv('docs/data/results/data.csv')
+very_popular_data <- subset(data, data$popularity == 'very_popular')
 
-very_popular_ridge$Date <- as.Date(very_popular_ridge$Date)
+very_popular_data$Date <- as.Date(very_popular_data$Date)
 # Plot
-very_popular_ridge %>%
+very_popular_data %>%
   ggplot( aes(x=Date, y=users_holding, group=Symbol, color=Symbol)) +
   geom_line() +  
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
@@ -103,7 +103,7 @@ very_popular_ridge %>%
 
 
 ```{r qplot59,  fig.width=20, fig.height=10, message=FALSE}
-very_popular_ridge %>%
+very_popular_data %>%
   ggplot( aes(x=Date, y=Adj.Close, group=Symbol, color=Symbol)) +
   geom_line() +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") +
@@ -117,7 +117,7 @@ very_popular_ridge %>%
 
 
 ```{r qplot58, fig.width=20, fig.height=11,message=FALSE}
-very_popular_ridge %>%
+very_popular_data %>%
   ggplot( aes(x=Date, y=Mcap, group=Symbol, color=Symbol)) +
   geom_line() +  
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
@@ -131,8 +131,7 @@ very_popular_ridge %>%
 
 
 ```{r qplot60, fig.width=10, fig.height=6, message=FALSE}
-
-very_popular_ridge %>%
+very_popular_data %>%
   ggplot( aes(x=Date, y=vix_Adj_close)) +
   geom_line() + 
   ggtitle("Daily VIX\nAugust 2018 - August 2020") +

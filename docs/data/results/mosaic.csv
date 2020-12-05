@@ -1,44 +1,44 @@
 Symbol_industry,Founded_range,popularity,freq
-Communication Services,1894-1952,normal,9
-Communication Services,1894-1952,not_popular,46
-Communication Services,1954-2019,normal,3
-Communication Services,1954-2019,not_popular,11
-Communication Services,1954-2019,very_popular,3
+Communication Services,1894-1952,normal,3
+Communication Services,1894-1952,not_popular,11
+Communication Services,1894-1952,very_popular,3
+Communication Services,1954-2019,normal,9
+Communication Services,1954-2019,not_popular,46
 Consumer Discretionary,1784-1892,not_popular,18
-Consumer Discretionary,1894-1952,normal,12
-Consumer Discretionary,1894-1952,not_popular,108
-Consumer Discretionary,1954-2019,not_popular,36
-Consumer Discretionary,1954-2019,very_popular,3
+Consumer Discretionary,1894-1952,not_popular,36
+Consumer Discretionary,1894-1952,very_popular,3
+Consumer Discretionary,1954-2019,normal,12
+Consumer Discretionary,1954-2019,not_popular,108
 Consumer Staples,1784-1892,normal,3
 Consumer Staples,1784-1892,not_popular,36
-Consumer Staples,1894-1952,not_popular,24
-Consumer Staples,1954-2019,not_popular,28
+Consumer Staples,1894-1952,not_popular,28
+Consumer Staples,1954-2019,not_popular,24
 Energy,1784-1892,not_popular,12
-Energy,1894-1952,not_popular,39
-Energy,1954-2019,not_popular,24
+Energy,1894-1952,not_popular,24
+Energy,1954-2019,not_popular,39
 Financials,1784-1892,normal,3
 Financials,1784-1892,not_popular,60
-Financials,1894-1952,not_popular,54
-Financials,1954-2019,not_popular,70
+Financials,1894-1952,not_popular,70
+Financials,1954-2019,not_popular,54
 Health Care,1784-1892,not_popular,39
-Health Care,1894-1952,not_popular,111
-Health Care,1954-2019,not_popular,27
+Health Care,1894-1952,not_popular,27
+Health Care,1954-2019,not_popular,111
 Industrials,1784-1892,not_popular,17
 Industrials,1784-1892,very_popular,3
-Industrials,1894-1952,not_popular,90
-Industrials,1954-2019,normal,9
-Industrials,1954-2019,not_popular,84
+Industrials,1894-1952,normal,9
+Industrials,1894-1952,not_popular,84
+Industrials,1954-2019,not_popular,90
 Information Technology,1784-1892,not_popular,9
-Information Technology,1894-1952,normal,9
-Information Technology,1894-1952,not_popular,160
-Information Technology,1894-1952,very_popular,6
-Information Technology,1954-2019,not_popular,24
+Information Technology,1894-1952,not_popular,24
+Information Technology,1954-2019,normal,9
+Information Technology,1954-2019,not_popular,160
+Information Technology,1954-2019,very_popular,6
 Materials,1784-1892,not_popular,23
-Materials,1894-1952,not_popular,27
-Materials,1954-2019,not_popular,30
+Materials,1894-1952,not_popular,30
+Materials,1954-2019,not_popular,27
 Real Estate,1784-1892,not_popular,3
-Real Estate,1894-1952,not_popular,76
-Real Estate,1954-2019,not_popular,12
+Real Estate,1894-1952,not_popular,12
+Real Estate,1954-2019,not_popular,76
 Utilities,1784-1892,not_popular,21
-Utilities,1894-1952,not_popular,27
-Utilities,1954-2019,not_popular,36
+Utilities,1894-1952,not_popular,36
+Utilities,1954-2019,not_popular,27

@@ -19,3 +19,7 @@ sp500-stock-prices-and-volume
 vix-and-mcap
 combined-everything-together
 robintrack-data
+how-ownership-change-by-industry-sectors-over-certain-time-period
+average-ownership-per-year-by-industry
+exploring-the-relationship-of-founding-date-vs-popularity-level
+a-deeper-look-into-the-very_popular-companies

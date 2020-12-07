@@ -1,9 +1,5 @@
---- 
-title: Exploration of the S&P 500 stock ownership in Robinhood
-author: Jingwen Du, Kassiani Papasotiriou
----
-
-This is our final project github repo.
+# Exploration of the S&P 500 stock ownership in Robinhood
+Jingwen Du, Kassiani Papasotiriou
 
 We are looking to explore any patterns in S&P 500 stock ownership on the financial app Robinhood  between Aug 2018 - Aug 2020.
 

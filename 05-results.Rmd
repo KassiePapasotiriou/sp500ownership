@@ -74,7 +74,153 @@ In the above mosaic plot we can see that there is a correlation between the age 
 
 A possible explanation of the partial positive correlation between founding year and popularity could due to the fact that Robinhood’s average customer is young^[According to [this](https://www.nytimes.com/2020/07/08/technology/robinhood-risky-trading.html) article] and therefore is more aware of the more recently founded companies.
 
+## Ownership by Company
+
+In this subsection, we dig deeper to see if there are any pattern at the individual company level.
+```{r, message= FALSE}
+library(forcats)
+library(tidyverse)
+library(tidyr)
+library(ggplot2)
+
+df= read.csv(file = 'docs/data/results/data.csv')
+df2 <- na.omit(df)
+df2_summary <- df2 %>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_holding))
+```
+
+We created a Cleveland dot plot to show the average number of account owners across all the companies in the S&P500.  In order to clearly show all 500 companes within the S&P500, we plotted five Cleveland dot plots of 100 companies each in descending order by average account ownership over the time period with the same x-axis scale for ease of comparison.
+
+```{r, message= FALSE}
+
+library(tidyverse)
+# create a theme for dot plots, which can be reused
+theme_dotplot <- theme_bw(14) +
+    theme(axis.text.y = element_text(size = rel(.75)),
+        axis.ticks.y = element_blank(),
+        axis.title.x = element_text(size = rel(.75)),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(size = 0.5),
+        panel.grid.minor.x = element_blank())
+
+```
+
+```{r, fig.height= 10, message= FALSE}
+ggplot(arrange(df2_summary, desc(Avg_holding))[1:100,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
+    geom_point(color = "blue") +
+    theme_dotplot +
+    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
+    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
+    xlab("Average Number of Account Owners") +
+    ylab("Stock Ticker") +
+    ggtitle("Average Account Ownership of the First 100 Companies by Popularity\nAug'18 - Aug'20")
+```
+
+
+```{r, fig.height= 10, message= FALSE}
+ggplot(arrange(df2_summary, desc(Avg_holding))[101:200,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
+    geom_point(color = "blue") +
+    theme_dotplot +
+    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
+    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
+    xlab("Average Number of Account Owners") +
+    ylab("Stock Ticker") +
+    ggtitle("Average Account Ownership of the Second 100 Companies by Popularity\nAug'18 - Aug'20")
+```
+
+
+```{r, fig.height= 10, message= FALSE}
+ggplot(arrange(df2_summary, desc(Avg_holding))[201:300,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
+    geom_point(color = "blue") +
+    theme_dotplot +
+    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
+    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
+    xlab("Average Number of Account Owners") +
+    ylab("Stock Ticker") +
+    ggtitle("Average Account Ownership of the Third 100 Companies by Popularity\nAug'18 - Aug'20")
+```
+
+
+
+```{r, fig.height= 10, message= FALSE}
+ggplot(arrange(df2_summary, desc(Avg_holding))[301:400,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
+    geom_point(color = "blue") +
+    theme_dotplot +
+    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
+    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
+    xlab("Average Number of Account Owners") +
+    ylab("Stock Ticker") +
+    ggtitle("Average Account Ownership of the Fourth 100 Companies by Popularity\nAug'18 - Aug'20")
+```
+
+
+```{r, fig.height= 10, message= FALSE}
+ggplot(arrange(df2_summary, desc(Avg_holding))[401:494,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
+    geom_point(color = "blue") +
+    theme_dotplot +
+    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
+    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
+    xlab("Average Number of Account Owners") +
+    ylab("Stock Ticker") +
+    ggtitle("Average Account Ownership of the Fifth 100 Companies by Popularity\nAug'18 - Aug'20")
+```
+
+We can quickly see from these 5 graphs that the majority of the stocks are "not popular" which means there are few accounts who own this stock. There are only a handful of stocks that have considerably higher number of accounts who own the stocks. Based on this observation, we divide the companies into three categories: very popular, normally popular, and not popular with details noted in the Data Transformation section. In the subsequent data exploration, we focus our attention on the "very popular" category given there are much greater investor attention on these companies.
+
+```{r, message=FALSE}
+
+df2_very_pop <- df2 %>% filter(popularity == "very_popular")%>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_holding))
+
+
+df2_normal <- df2 %>% filter(popularity == "normal")%>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_holding))
+
+df2_not_pop <- df2 %>% filter(popularity == "not_popular")%>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_holding))
+
+```
+
+
+We first take a look at companies within the most popular category.
+```{r, message= FALSE}
+very_pop <- pull(arrange(df2_very_pop, desc(Avg_holding)),Symbol)
+very_pop
+```
+
+The top five most popular (by average number of account owners) companies are F (Ford Motors Vehicle), GE (General Electric Company), AAPL (Apple), MSFT (Microsoft), and DIS (Disney).  Unsurprisingly these are well-established companies that most households know. This is consistent with intuition that the most investors using the Robinhood app are retail investors so would invest in stable, well-known companies.
+
+```{r, message= FALSE}
+norm_pop <- pull(arrange(df2_normal, desc(Avg_holding)),Symbol)
+norm_pop
+```
+
+In the second tier of "normal"(ly) popular companies are AMD (Advanced Micro Devices), FB (Facebook), BAC (Bank of America), AMZN (Amazon), TWTR (Twitter), NFLX (Netflix), AAL (American Airline), DAL (Delta Airline), DAL (Nvidia), SBUX (Starbucks), T (AT&T), Carnival, Boeing, Coca-Cola, Micron Technology, and Norwegian Cruise Line.  Well most of these companies are also well-established companies, these are additional intuition supporting relatively higher account ownership behind these stocks. Many of these companies were heavily impacted by the pandemic and received intense investor attention in the post-COVID financial market. Travel-related companies such as American Airline, Delta Airline, and Boeing as well as leisure-related companies including Carnival and Norwegian Cruise line had businesses that were negatively impacted by the restriction imposed during the pandemic.  This led to their stock prices to plummet considerably. Retail investors perhaps saw this as an opportunity to "buy the dip" and increase account ownership for these companies. Another trend we see is the prevalence of tech companies that are positively impacted by the work-from-home dynamic in the post-COVID world.  Companies such as Advanced Micro Devices and Nvidia produce computing chips and systems for mobile computing 
+
+As we shall see later in our data exploration, Robinhood saw a significant increase in new accounts and investing activity post March 2020, further supporting the intuition that companies that were heavily impacted by the pandemic would see heightened attention.
+
+
 ## A deeper look into the `very_popular` companies
+
+To better understand the distribution shape of the individual account ownership, we first looked at the histogram of the top 5 companies' ownership distribution.
+
+```{r fig.height= 8, fig.width= 10, message= FALSE}
+library(scales)
+group1 <- df2 %>% filter(Symbol %in% very_pop) 
+group1$Symbol <- factor(group1$Symbol, levels = very_pop)
+
+ggplot(group1, aes(x = users_holding)) + geom_histogram(bins=50) + facet_wrap(~Symbol)+ theme(axis.text.x = element_text(size = 8)) + scale_x_continuous(label=comma) + labs(title = "Account Ownership Distribution of Top 5 Most Popular Companies", x = "Number of Account Who Own the Stock") 
+```
+
+Looking at the individual account ownership of the top 5 most popular companies, we can see that they are all right skewed distribution. There is one peak with high frequency for <= 250k account owners. For companies like Disney, Ford, and General Electric there is a second peak near the highest number of accounts (750k-1mm) but that peak is much smaller the first at the lower end. This makes intuitive sense as the second peak of high number of accounts would result in an elevated average account ownership putting in on the most popular list. The more popular companies (such as F and GE) tend to have wider min-to-max ranges than the less popular ones.
+
+Next, we use boxplots to show the distribution of account ownership of the individual stocks within the most popular category. The circle denotes the mean for comparison with the quartiles.
+
+```{r, message = FALSE}
+
+df2 %>% filter(Symbol %in% very_pop) %>%  ggplot(aes(x = reorder(Symbol, -users_holding, median), y = users_holding)) + geom_boxplot() + xlab("Top 5 Most Popular Companies") + ylab ("Number of Accounts Who Own the Stock") + stat_summary(fun = mean, geom = "point", shape = 1, size = 3)
+
+```
+
+Looking at the boxplots, it is evident that there are considerably number of outliers across all 5 companies.  Almost all of the outliers are skewed toward the high end which would increase the average account ownership across the time period. With the exception of MSFT, the mean across the remaining 4 companies seems to be near or above the upper hinge. APPL stands out with a much smaller H-spread compared to the other companies suggesting that the number of accounts who owned Apple is concentrated around just below the 250k mark. Within the H-spread, the length to the lower hinge and upper hinge look to be relatively symmetric. 
+
+As we tried to examine any patterns regarding outliers, we used time series line graphs to introduce time as another variable.
 
 ```{r qplot57, fig.width=20, fig.height=10,message=FALSE}
 # Libraries
@@ -93,7 +239,8 @@ very_popular_data %>%
   ggplot( aes(x=Date, y=users_holding, group=Symbol, color=Symbol)) +
   geom_line() +  
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
-  ggtitle("Daily stock user's holding for the most popular S&P500 companies\nAugust 2018 - August 2020") +
+  ggtitle("How the Number of Account Owners Changed for the Most 5 Popular Companies\nAugust 2018 - August 2020") +
+    ylab("Number of Account Who Own the Stock")+
   theme(plot.title=element_text(size=22),
           axis.text=element_text(size=19),
          axis.title=element_text(size=18),
@@ -101,7 +248,9 @@ very_popular_data %>%
         legend.text = element_text(size = 14))
 ```
 
+By looking how the daily number of account owners for a particular stock changed over time, we can easily see a significant increase around the March-April 2020 timeframe. Visually we can see that all of the outliers at significantly large number of account owners are during the later end of the available dataset near summer 2020. This is consistent with what we observed in the boxplot and histogram where for the majority of time period (from Aug 2018 to March 2020), the daily number of account owners was relatively stable within a tight range. 
 
+Next, we plot the stock prices of the top 5 most popular companies to see if there's any relationship between the stock price and number of account owners.
 ```{r qplot59,  fig.width=20, fig.height=10, message=FALSE}
 very_popular_data %>%
   ggplot( aes(x=Date, y=Adj.Close, group=Symbol, color=Symbol)) +
@@ -115,6 +264,7 @@ very_popular_data %>%
         legend.text = element_text(size = 14))
 ```
 
+We also looked at the market capitalization of these 5 companies. The market capitalization measures the size of the company's outstanding equity value. It is calculated by stock price multiplied by the number of shares outstanding.
 
 ```{r qplot58, fig.width=20, fig.height=11,message=FALSE}
 very_popular_data %>%
@@ -129,6 +279,11 @@ very_popular_data %>%
         legend.text = element_text(size = 14))
 ```
 
+Since stock price level is an input in the market capitalization, it is unsurprisingly that the daily market cap of the companies follow a similar shape to the stock price. In this graph, Apple has a higher market cap than Microsoft despite Microsoft having a higher stock price. This trend is not statistically meaningful because Microsoft simply has lower number of shares outstanding.
+
+From the graphs, we can see that across all 5 companies, the stock price took a hit in March 2020 coinciding with the onset of the pandemic in the US. After the initial drop in price, the stock prices slowly increased back up. It is not consistent whether the stock prices increased back to the pre-pandemic level. One theory for this behavior is that investors using Robinhood took the opportunity to buy stocks when the price was low. Since these 5 companies are well established companies that are unlikely to be negatively impacted by the pandemic, investors increased their ownership of these stocks. They continued to buy these stocks as the stock prices continue to rise as a positive feedback loop to the positive returns on their investments.
+
+Lastly, we looked at the VIX index which measure the market-implied pricing for markets volatility. It is an industry standard metric that indicates investor's expectation for uncertainty with a higher number corresponding to higher volatility. 
 
 ```{r qplot60, fig.width=10, fig.height=6, message=FALSE}
 very_popular_data %>%
@@ -142,3 +297,6 @@ very_popular_data %>%
          legend.title = element_text( size = 6),
         legend.text = element_text(size = 5))
 ```
+
+
+We see that the VIX spiked significantly during the March-April 2020 timeframe corresponding to when we saw a drop in stock price. Since the VIX is an indicator across the broader S&P500 index, it suggests that the outsized stock price movement was not limited to just the top 5 companies that we looked at. It further validates our original intuition that there is a trend of Robinhood investors taking advantage of the market uncertainty in March/April 2020 to buy certain well-established companies. By buying in well known companies with limited adverse impact from COVID-19, the investors can invest their money in a relatively safe stock that preserve capital and buy at a lower price with the hope that the stock returns back to previous levels. The continuation of higher account owners may be both attributed to higher overall accounts on Robinhood as well as positive feedback from subsequent stock performance.

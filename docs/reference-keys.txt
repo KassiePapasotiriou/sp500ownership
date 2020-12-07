@@ -39,3 +39,8 @@ mosaic.csv
 next-steps-in-preprocessing
 results-dataframes
 further-preprocessing
+results-1
+average-ownership-per-year-by-industry-1
+exploring-the-relationship-of-founding-date-vs-popularity-level-1
+ownership-by-company
+ownership-by-company-1

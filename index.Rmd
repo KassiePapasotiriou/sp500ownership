@@ -7,4 +7,6 @@ site: bookdown::bookdown_site
 
 # Introduction
 
-For the final project we are looking to explore any patterns in stock ownership on the financial app Robinhood.  Robinhood is an investment app focused on retail investors.  In particular retail investors have significantly increased their usage and presence on Robinhood amid the post-COVID market volatility. This spurred heightened focus and attention by news reports and financial institutions to see if there's any insight we can see from these retail involvement in the stock market.
+For the final project we are looking to explore any patterns in stock ownership on the financial app Robinhood.  Robinhood is an investment app focused on retail investors.  
+
+In particular, retail investors have significantly increased their usage and presence on Robinhood amid the post-COVID market volatility. This spurred heightened focus and attention by news reports and financial institutions to see if there's any insight we can see from these retail involvement in the stock market.

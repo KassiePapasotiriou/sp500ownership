@@ -2,7 +2,7 @@
 
 The main focus of our analysis will examine Robintrack's users stock holding of the S&P500 companies between August 2018 - August 2020. We will explore how price, market cap, industry and founding year affect user's holding.
 
-## Average ownership per year by industry
+## Average Ownership by industry
 
 ```{r}
 library(GGally)
@@ -44,36 +44,6 @@ Some insights that we can extract from the above plot are:
 
 * Moreover, `Consumer Staples` and  `Industrials` industries have almost the same stock holding between 2018 and 2019. That trend was broken in 2020 when `Industrials` almost tripled in user's holding compared to `Consumer Staples`.
 
-
-## Exploring the relationship of founding date vs popularity level 
-
-As mentioned in the data transformation section, we measure a stock's popularity by averaging amount of user's holding acrross 2018-2020. We assign each company to a popularilty group by using KMeans clustering(k=3) for the avergage user's holding over those 3 years. The three popularity categories are; `not_popular`(n=473), `normal`(n=16) and `very_popular`(n=5).  
-
-Moreover, as mentioned in the transformation section, we have also split the companies in three fouding dates ranges. We again used KMeans clustering(k=3) in order to group the S&P500 companies in three age groups for which we recorded the minimum and maximum founding rate in each group as their label. More specifically the three founding ranges are;`1784-1892`(n=247),`1894-1952`(n=400), `1954-2019`(n=798).
-
-```{r qplot56, fig.width=6, fig.height=6,message=FALSE}
-library(vcd)
-mosaic <-read.csv('docs/data/results/mosaic.csv')
-mosaic$Founded_range<-factor(mosaic$Founded_range, levels=c("1784-1892","1894-1952","1954-2019"))
-mosaic$popularity<-factor(mosaic$popularity, levels=c("not_popular","normal","very_popular"))
-
-colors = c("grey95", "aliceblue", "cornflowerblue")
-vcd::mosaic(Founded_range~popularity, direction = c("v","h") ,mosaic,
-            highlighting_fill = colors, gp_varnames = gpar(fontsize = 10, fontface = 1),gp_labels = gpar(fontsize = 8))
-```
-
-In the above mosaic plot we can see that there is a correlation between the age of a company and its popularity. More specifically:
-
-* We can see that for the less popular companies there is an equal amount of observations across all three founding ranges.
-
-* When comparing the normal and the less popular companies we can see an increase in popularity as the founding date becomes more recent.
-
-* Moreover, even though the oldest copanies are the ones that appear the least across the very popular companies, we can see that the medium founding range companies (`1894-1952`) are the the most across the `very_popular`.
-
-* We would have been able to identify a positive correlation between how recently a company was founded and how popular the company is amongst Robinhood users. However this trend is broken in the `very_popular` companies.
-
-A possible explanation of the partial positive correlation between founding year and popularity could due to the fact that Robinhood’s average customer is young^[According to [this](https://www.nytimes.com/2020/07/08/technology/robinhood-risky-trading.html) article] and therefore is more aware of the more recently founded companies.
-
 ## Ownership by Company
 
 In this subsection, we dig deeper to see if there are any pattern at the individual company level.
@@ -90,84 +60,10 @@ df2_summary <- df2 %>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_h
 
 We created a Cleveland dot plot to show the average number of account owners across all the companies in the S&P500.  In order to clearly show all 500 companes within the S&P500, we plotted five Cleveland dot plots of 100 companies each in descending order by average account ownership over the time period with the same x-axis scale for ease of comparison.
 
-```{r, message= FALSE}
-
-library(tidyverse)
-# create a theme for dot plots, which can be reused
-theme_dotplot <- theme_bw(14) +
-    theme(axis.text.y = element_text(size = rel(.75)),
-        axis.ticks.y = element_blank(),
-        axis.title.x = element_text(size = rel(.75)),
-        panel.grid.major.x = element_blank(),
-        panel.grid.major.y = element_line(size = 0.5),
-        panel.grid.minor.x = element_blank())
-
-```
-
-```{r, fig.height= 10, message= FALSE}
-ggplot(arrange(df2_summary, desc(Avg_holding))[1:100,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
-    geom_point(color = "blue") +
-    theme_dotplot +
-    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
-    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
-    xlab("Average Number of Account Owners") +
-    ylab("Stock Ticker") +
-    ggtitle("Average Account Ownership of the First 100 Companies by Popularity\nAug'18 - Aug'20")
-```
-
-
-```{r, fig.height= 10, message= FALSE}
-ggplot(arrange(df2_summary, desc(Avg_holding))[101:200,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
-    geom_point(color = "blue") +
-    theme_dotplot +
-    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
-    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
-    xlab("Average Number of Account Owners") +
-    ylab("Stock Ticker") +
-    ggtitle("Average Account Ownership of the Second 100 Companies by Popularity\nAug'18 - Aug'20")
-```
-
-
-```{r, fig.height= 10, message= FALSE}
-ggplot(arrange(df2_summary, desc(Avg_holding))[201:300,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
-    geom_point(color = "blue") +
-    theme_dotplot +
-    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
-    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
-    xlab("Average Number of Account Owners") +
-    ylab("Stock Ticker") +
-    ggtitle("Average Account Ownership of the Third 100 Companies by Popularity\nAug'18 - Aug'20")
-```
-
-
-
-```{r, fig.height= 10, message= FALSE}
-ggplot(arrange(df2_summary, desc(Avg_holding))[301:400,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
-    geom_point(color = "blue") +
-    theme_dotplot +
-    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
-    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
-    xlab("Average Number of Account Owners") +
-    ylab("Stock Ticker") +
-    ggtitle("Average Account Ownership of the Fourth 100 Companies by Popularity\nAug'18 - Aug'20")
-```
-
-
-```{r, fig.height= 10, message= FALSE}
-ggplot(arrange(df2_summary, desc(Avg_holding))[401:494,], aes(x = Avg_holding, y = reorder(Symbol, Avg_holding))) +
-    geom_point(color = "blue") +
-    theme_dotplot +
-    theme(plot.title = element_text(size = 14), axis.text.y = element_text(size = rel(0.5))) +
-    scale_x_continuous(labels = scales::comma, limits = c(0, 400000)) +
-    xlab("Average Number of Account Owners") +
-    ylab("Stock Ticker") +
-    ggtitle("Average Account Ownership of the Fifth 100 Companies by Popularity\nAug'18 - Aug'20")
-```
-
 We can quickly see from these 5 graphs that the majority of the stocks are "not popular" which means there are few accounts who own this stock. There are only a handful of stocks that have considerably higher number of accounts who own the stocks. Based on this observation, we divide the companies into three categories: very popular, normally popular, and not popular with details noted in the Data Transformation section. In the subsequent data exploration, we focus our attention on the "very popular" category given there are much greater investor attention on these companies.
 
 ```{r, message=FALSE}
-
+library(tidyverse)
 df2_very_pop <- df2 %>% filter(popularity == "very_popular")%>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_holding))
 
 
@@ -181,14 +77,14 @@ df2_not_pop <- df2 %>% filter(popularity == "not_popular")%>% group_by(Symbol) %
 We first take a look at companies within the most popular category.
 ```{r, message= FALSE}
 very_pop <- pull(arrange(df2_very_pop, desc(Avg_holding)),Symbol)
-very_pop
+as.character(very_pop)
 ```
 
 The top five most popular (by average number of account owners) companies are F (Ford Motors Vehicle), GE (General Electric Company), AAPL (Apple), MSFT (Microsoft), and DIS (Disney).  Unsurprisingly these are well-established companies that most households know. This is consistent with intuition that the most investors using the Robinhood app are retail investors so would invest in stable, well-known companies.
 
 ```{r, message= FALSE}
 norm_pop <- pull(arrange(df2_normal, desc(Avg_holding)),Symbol)
-norm_pop
+as.character(norm_pop)
 ```
 
 In the second tier of "normal"(ly) popular companies are AMD (Advanced Micro Devices), FB (Facebook), BAC (Bank of America), AMZN (Amazon), TWTR (Twitter), NFLX (Netflix), AAL (American Airline), DAL (Delta Airline), DAL (Nvidia), SBUX (Starbucks), T (AT&T), Carnival, Boeing, Coca-Cola, Micron Technology, and Norwegian Cruise Line.  Well most of these companies are also well-established companies, these are additional intuition supporting relatively higher account ownership behind these stocks. Many of these companies were heavily impacted by the pandemic and received intense investor attention in the post-COVID financial market. Travel-related companies such as American Airline, Delta Airline, and Boeing as well as leisure-related companies including Carnival and Norwegian Cruise line had businesses that were negatively impacted by the restriction imposed during the pandemic.  This led to their stock prices to plummet considerably. Retail investors perhaps saw this as an opportunity to "buy the dip" and increase account ownership for these companies. Another trend we see is the prevalence of tech companies that are positively impacted by the work-from-home dynamic in the post-COVID world.  Companies such as Advanced Micro Devices and Nvidia produce computing chips and systems for mobile computing 
@@ -196,7 +92,7 @@ In the second tier of "normal"(ly) popular companies are AMD (Advanced Micro Dev
 As we shall see later in our data exploration, Robinhood saw a significant increase in new accounts and investing activity post March 2020, further supporting the intuition that companies that were heavily impacted by the pandemic would see heightened attention.
 
 
-## A deeper look into the `very_popular` companies
+## Ownership of the `very_popular` companies
 
 To better understand the distribution shape of the individual account ownership, we first looked at the histogram of the top 5 companies' ownership distribution.
 
@@ -300,3 +196,33 @@ very_popular_data %>%
 
 
 We see that the VIX spiked significantly during the March-April 2020 timeframe corresponding to when we saw a drop in stock price. Since the VIX is an indicator across the broader S&P500 index, it suggests that the outsized stock price movement was not limited to just the top 5 companies that we looked at. It further validates our original intuition that there is a trend of Robinhood investors taking advantage of the market uncertainty in March/April 2020 to buy certain well-established companies. By buying in well known companies with limited adverse impact from COVID-19, the investors can invest their money in a relatively safe stock that preserve capital and buy at a lower price with the hope that the stock returns back to previous levels. The continuation of higher account owners may be both attributed to higher overall accounts on Robinhood as well as positive feedback from subsequent stock performance.
+
+## Ownership vs Founding Year 
+
+As mentioned in the data transformation section, we measure a stock's popularity by averaging amount of user's holding acrross 2018-2020. We assign each company to a popularilty group by using KMeans clustering(k=3) for the avergage user's holding over those 3 years. The three popularity categories are; `not_popular`(n=473), `normal`(n=16) and `very_popular`(n=5).  
+
+Moreover, as mentioned in the transformation section, we have also split the companies in three fouding dates ranges. We again used KMeans clustering(k=3) in order to group the S&P500 companies in three age groups for which we recorded the minimum and maximum founding rate in each group as their label. More specifically the three founding ranges are;`1784-1892`(n=247),`1894-1952`(n=400), `1954-2019`(n=798).
+
+```{r qplot56, fig.width=6, fig.height=6,message=FALSE}
+library(vcd)
+mosaic <-read.csv('docs/data/results/mosaic.csv')
+mosaic$Founded_range<-factor(mosaic$Founded_range, levels=c("1784-1892","1894-1952","1954-2019"))
+mosaic$popularity<-factor(mosaic$popularity, levels=c("not_popular","normal","very_popular"))
+
+colors = c("grey95", "aliceblue", "cornflowerblue")
+vcd::mosaic(Founded_range~popularity, direction = c("v","h") ,mosaic,
+            highlighting_fill = colors, gp_varnames = gpar(fontsize = 10, fontface = 1),gp_labels = gpar(fontsize = 8))
+```
+
+In the above mosaic plot we can see that there is a correlation between the age of a company and its popularity. More specifically:
+
+* We can see that for the less popular companies there is an equal amount of observations across all three founding ranges.
+
+* When comparing the normal and the less popular companies we can see an increase in popularity as the founding date becomes more recent.
+
+* Moreover, even though the oldest copanies are the ones that appear the least across the very popular companies, we can see that the medium founding range companies (`1894-1952`) are the the most across the `very_popular`.
+
+* We would have been able to identify a positive correlation between how recently a company was founded and how popular the company is amongst Robinhood users. However this trend is broken in the `very_popular` companies.
+
+A possible explanation of the partial positive correlation between founding year and popularity could due to the fact that Robinhood’s average customer is young^[According to [this](https://www.nytimes.com/2020/07/08/technology/robinhood-risky-trading.html) article] and therefore is more aware of the more recently founded companies.
+

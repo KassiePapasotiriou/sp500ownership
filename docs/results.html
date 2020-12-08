@@ -98,10 +98,10 @@
 <li class="chapter" data-level="4.5" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.5</b> Dealing with missing values</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#average-ownership-per-year-by-industry"><i class="fa fa-check"></i><b>5.1</b> Average ownership per year by industry</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#exploring-the-relationship-of-founding-date-vs-popularity-level"><i class="fa fa-check"></i><b>5.2</b> Exploring the relationship of founding date vs popularity level</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#ownership-by-company"><i class="fa fa-check"></i><b>5.3</b> Ownership by Company</a></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#a-deeper-look-into-the-very_popular-companies"><i class="fa fa-check"></i><b>5.4</b> A deeper look into the <code>very_popular</code> companies</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#average-ownership-by-industry"><i class="fa fa-check"></i><b>5.1</b> Average Ownership by industry</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#ownership-by-company"><i class="fa fa-check"></i><b>5.2</b> Ownership by Company</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#ownership-of-the-very_popular-companies"><i class="fa fa-check"></i><b>5.3</b> Ownership of the <code>very_popular</code> companies</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#ownership-vs-founding-year"><i class="fa fa-check"></i><b>5.4</b> Ownership vs Founding Year</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -127,8 +127,8 @@
 <div id="results" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
 <p>The main focus of our analysis will examine Robintrack’s users stock holding of the S&amp;P500 companies between August 2018 - August 2020. We will explore how price, market cap, industry and founding year affect user’s holding.</p>
-<div id="average-ownership-per-year-by-industry" class="section level2">
-<h2><span class="header-section-number">5.1</span> Average ownership per year by industry</h2>
+<div id="average-ownership-by-industry" class="section level2">
+<h2><span class="header-section-number">5.1</span> Average Ownership by industry</h2>
 <p>The first transformed dataframe the average user’s stock holding per industry for 2018, 2019 and 2020.</p>
 <p>In order explore the shifts in the most popular industries between 2018-2020, we have created a Clevland plot for which we have sorted the y axis in descending order for the users holding on 2020.</p>
 <p><img src="finalproj_files/figure-html/qplot51-1.png" width="960" /></p>
@@ -143,47 +143,26 @@
 <li><p>Moreover, <code>Consumer Staples</code> and <code>Industrials</code> industries have almost the same stock holding between 2018 and 2019. That trend was broken in 2020 when <code>Industrials</code> almost tripled in user’s holding compared to <code>Consumer Staples</code>.</p></li>
 </ul>
 </div>
-<div id="exploring-the-relationship-of-founding-date-vs-popularity-level" class="section level2">
-<h2><span class="header-section-number">5.2</span> Exploring the relationship of founding date vs popularity level</h2>
-<p>As mentioned in the data transformation section, we measure a stock’s popularity by averaging amount of user’s holding acrross 2018-2020. We assign each company to a popularilty group by using KMeans clustering(k=3) for the avergage user’s holding over those 3 years. The three popularity categories are; <code>not_popular</code>(n=473), <code>normal</code>(n=16) and <code>very_popular</code>(n=5).</p>
-<p>Moreover, as mentioned in the transformation section, we have also split the companies in three fouding dates ranges. We again used KMeans clustering(k=3) in order to group the S&amp;P500 companies in three age groups for which we recorded the minimum and maximum founding rate in each group as their label. More specifically the three founding ranges are;<code>1784-1892</code>(n=247),<code>1894-1952</code>(n=400), <code>1954-2019</code>(n=798).</p>
-<p><img src="finalproj_files/figure-html/qplot56-1.png" width="576" /></p>
-<p>In the above mosaic plot we can see that there is a correlation between the age of a company and its popularity. More specifically:</p>
-<ul>
-<li><p>We can see that for the less popular companies there is an equal amount of observations across all three founding ranges.</p></li>
-<li><p>When comparing the normal and the less popular companies we can see an increase in popularity as the founding date becomes more recent.</p></li>
-<li><p>Moreover, even though the oldest copanies are the ones that appear the least across the very popular companies, we can see that the medium founding range companies (<code>1894-1952</code>) are the the most across the <code>very_popular</code>.</p></li>
-<li><p>We would have been able to identify a positive correlation between how recently a company was founded and how popular the company is amongst Robinhood users. However this trend is broken in the <code>very_popular</code> companies.</p></li>
-</ul>
-<p>A possible explanation of the partial positive correlation between founding year and popularity could due to the fact that Robinhood’s average customer is young<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and therefore is more aware of the more recently founded companies.</p>
-</div>
 <div id="ownership-by-company" class="section level2">
-<h2><span class="header-section-number">5.3</span> Ownership by Company</h2>
+<h2><span class="header-section-number">5.2</span> Ownership by Company</h2>
 <p>In this subsection, we dig deeper to see if there are any pattern at the individual company level.</p>
 <p>We created a Cleveland dot plot to show the average number of account owners across all the companies in the S&amp;P500. In order to clearly show all 500 companes within the S&amp;P500, we plotted five Cleveland dot plots of 100 companies each in descending order by average account ownership over the time period with the same x-axis scale for ease of comparison.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>We can quickly see from these 5 graphs that the majority of the stocks are “not popular” which means there are few accounts who own this stock. There are only a handful of stocks that have considerably higher number of accounts who own the stocks. Based on this observation, we divide the companies into three categories: very popular, normally popular, and not popular with details noted in the Data Transformation section. In the subsequent data exploration, we focus our attention on the “very popular” category given there are much greater investor attention on these companies.</p>
 <p>We first take a look at companies within the most popular category.</p>
-<pre><code>## [1] F    GE   AAPL MSFT DIS 
-## 494 Levels: A AAL AAP AAPL ABBV ABC ABMD ABT ACN ADBE ADI ADM ADP ADSK ... ZTS</code></pre>
+<pre><code>## [1] &quot;F&quot;    &quot;GE&quot;   &quot;AAPL&quot; &quot;MSFT&quot; &quot;DIS&quot;</code></pre>
 <p>The top five most popular (by average number of account owners) companies are F (Ford Motors Vehicle), GE (General Electric Company), AAPL (Apple), MSFT (Microsoft), and DIS (Disney). Unsurprisingly these are well-established companies that most households know. This is consistent with intuition that the most investors using the Robinhood app are retail investors so would invest in stable, well-known companies.</p>
-<pre><code>##  [1] AMD  FB   BAC  AMZN TWTR NFLX AAL  DAL  NVDA SBUX T    CCL  BA   KO   MU  
-## [16] NCLH
-## 494 Levels: A AAL AAP AAPL ABBV ABC ABMD ABT ACN ADBE ADI ADM ADP ADSK ... ZTS</code></pre>
+<pre><code>##  [1] &quot;AMD&quot;  &quot;FB&quot;   &quot;BAC&quot;  &quot;AMZN&quot; &quot;TWTR&quot; &quot;NFLX&quot; &quot;AAL&quot;  &quot;DAL&quot;  &quot;NVDA&quot; &quot;SBUX&quot;
+## [11] &quot;T&quot;    &quot;CCL&quot;  &quot;BA&quot;   &quot;KO&quot;   &quot;MU&quot;   &quot;NCLH&quot;</code></pre>
 <p>In the second tier of “normal”(ly) popular companies are AMD (Advanced Micro Devices), FB (Facebook), BAC (Bank of America), AMZN (Amazon), TWTR (Twitter), NFLX (Netflix), AAL (American Airline), DAL (Delta Airline), DAL (Nvidia), SBUX (Starbucks), T (AT&amp;T), Carnival, Boeing, Coca-Cola, Micron Technology, and Norwegian Cruise Line. Well most of these companies are also well-established companies, these are additional intuition supporting relatively higher account ownership behind these stocks. Many of these companies were heavily impacted by the pandemic and received intense investor attention in the post-COVID financial market. Travel-related companies such as American Airline, Delta Airline, and Boeing as well as leisure-related companies including Carnival and Norwegian Cruise line had businesses that were negatively impacted by the restriction imposed during the pandemic. This led to their stock prices to plummet considerably. Retail investors perhaps saw this as an opportunity to “buy the dip” and increase account ownership for these companies. Another trend we see is the prevalence of tech companies that are positively impacted by the work-from-home dynamic in the post-COVID world. Companies such as Advanced Micro Devices and Nvidia produce computing chips and systems for mobile computing</p>
 <p>As we shall see later in our data exploration, Robinhood saw a significant increase in new accounts and investing activity post March 2020, further supporting the intuition that companies that were heavily impacted by the pandemic would see heightened attention.</p>
 </div>
-<div id="a-deeper-look-into-the-very_popular-companies" class="section level2">
-<h2><span class="header-section-number">5.4</span> A deeper look into the <code>very_popular</code> companies</h2>
+<div id="ownership-of-the-very_popular-companies" class="section level2">
+<h2><span class="header-section-number">5.3</span> Ownership of the <code>very_popular</code> companies</h2>
 <p>To better understand the distribution shape of the individual account ownership, we first looked at the histogram of the top 5 companies’ ownership distribution.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
 <p>Looking at the individual account ownership of the top 5 most popular companies, we can see that they are all right skewed distribution. There is one peak with high frequency for &lt;= 250k account owners. For companies like Disney, Ford, and General Electric there is a second peak near the highest number of accounts (750k-1mm) but that peak is much smaller the first at the lower end. This makes intuitive sense as the second peak of high number of accounts would result in an elevated average account ownership putting in on the most popular list. The more popular companies (such as F and GE) tend to have wider min-to-max ranges than the less popular ones.</p>
 <p>Next, we use boxplots to show the distribution of account ownership of the individual stocks within the most popular category. The circle denotes the mean for comparison with the quartiles.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Looking at the boxplots, it is evident that there are considerably number of outliers across all 5 companies. Almost all of the outliers are skewed toward the high end which would increase the average account ownership across the time period. With the exception of MSFT, the mean across the remaining 4 companies seems to be near or above the upper hinge. APPL stands out with a much smaller H-spread compared to the other companies suggesting that the number of accounts who owned Apple is concentrated around just below the 250k mark. Within the H-spread, the length to the lower hinge and upper hinge look to be relatively symmetric.</p>
 <p>As we tried to examine any patterns regarding outliers, we used time series line graphs to introduce time as another variable.</p>
 <p><img src="finalproj_files/figure-html/qplot57-1.png" width="1920" /></p>
@@ -197,13 +176,27 @@
 <p>Lastly, we looked at the VIX index which measure the market-implied pricing for markets volatility. It is an industry standard metric that indicates investor’s expectation for uncertainty with a higher number corresponding to higher volatility.</p>
 <p><img src="finalproj_files/figure-html/qplot60-1.png" width="960" /></p>
 <p>We see that the VIX spiked significantly during the March-April 2020 timeframe corresponding to when we saw a drop in stock price. Since the VIX is an indicator across the broader S&amp;P500 index, it suggests that the outsized stock price movement was not limited to just the top 5 companies that we looked at. It further validates our original intuition that there is a trend of Robinhood investors taking advantage of the market uncertainty in March/April 2020 to buy certain well-established companies. By buying in well known companies with limited adverse impact from COVID-19, the investors can invest their money in a relatively safe stock that preserve capital and buy at a lower price with the hope that the stock returns back to previous levels. The continuation of higher account owners may be both attributed to higher overall accounts on Robinhood as well as positive feedback from subsequent stock performance.</p>
+</div>
+<div id="ownership-vs-founding-year" class="section level2">
+<h2><span class="header-section-number">5.4</span> Ownership vs Founding Year</h2>
+<p>As mentioned in the data transformation section, we measure a stock’s popularity by averaging amount of user’s holding acrross 2018-2020. We assign each company to a popularilty group by using KMeans clustering(k=3) for the avergage user’s holding over those 3 years. The three popularity categories are; <code>not_popular</code>(n=473), <code>normal</code>(n=16) and <code>very_popular</code>(n=5).</p>
+<p>Moreover, as mentioned in the transformation section, we have also split the companies in three fouding dates ranges. We again used KMeans clustering(k=3) in order to group the S&amp;P500 companies in three age groups for which we recorded the minimum and maximum founding rate in each group as their label. More specifically the three founding ranges are;<code>1784-1892</code>(n=247),<code>1894-1952</code>(n=400), <code>1954-2019</code>(n=798).</p>
+<p><img src="finalproj_files/figure-html/qplot56-1.png" width="576" /></p>
+<p>In the above mosaic plot we can see that there is a correlation between the age of a company and its popularity. More specifically:</p>
+<ul>
+<li><p>We can see that for the less popular companies there is an equal amount of observations across all three founding ranges.</p></li>
+<li><p>When comparing the normal and the less popular companies we can see an increase in popularity as the founding date becomes more recent.</p></li>
+<li><p>Moreover, even though the oldest copanies are the ones that appear the least across the very popular companies, we can see that the medium founding range companies (<code>1894-1952</code>) are the the most across the <code>very_popular</code>.</p></li>
+<li><p>We would have been able to identify a positive correlation between how recently a company was founded and how popular the company is amongst Robinhood users. However this trend is broken in the <code>very_popular</code> companies.</p></li>
+</ul>
+<p>A possible explanation of the partial positive correlation between founding year and popularity could due to the fact that Robinhood’s average customer is young<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> and therefore is more aware of the more recently founded companies.</p>
 
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="5">
-<li id="fn5"><p>According to <a href="https://www.nytimes.com/2020/07/08/technology/robinhood-risky-trading.html">this</a> article<a href="results.html#fnref5" class="footnote-back">↩</a></p></li>
+<ol start="6">
+<li id="fn6"><p>According to <a href="https://www.nytimes.com/2020/07/08/technology/robinhood-risky-trading.html">this</a> article<a href="results.html#fnref6" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

@@ -24,7 +24,7 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
-<meta name="date" content="2020-12-07" />
+<meta name="date" content="2020-12-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,16 +159,16 @@
 <div id="ownership-of-the-very_popular-companies" class="section level2">
 <h2><span class="header-section-number">5.3</span> Ownership of the <code>very_popular</code> companies</h2>
 <p>To better understand the distribution shape of the individual account ownership, we first looked at the histogram of the top 5 companies’ ownership distribution.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
 <p>Looking at the individual account ownership of the top 5 most popular companies, we can see that they are all right skewed distribution. There is one peak with high frequency for &lt;= 250k account owners. For companies like Disney, Ford, and General Electric there is a second peak near the highest number of accounts (750k-1mm) but that peak is much smaller the first at the lower end. This makes intuitive sense as the second peak of high number of accounts would result in an elevated average account ownership putting in on the most popular list. The more popular companies (such as F and GE) tend to have wider min-to-max ranges than the less popular ones.</p>
 <p>Next, we use boxplots to show the distribution of account ownership of the individual stocks within the most popular category. The circle denotes the mean for comparison with the quartiles.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Looking at the boxplots, it is evident that there are considerably number of outliers across all 5 companies. Almost all of the outliers are skewed toward the high end which would increase the average account ownership across the time period. With the exception of MSFT, the mean across the remaining 4 companies seems to be near or above the upper hinge. APPL stands out with a much smaller H-spread compared to the other companies suggesting that the number of accounts who owned Apple is concentrated around just below the 250k mark. Within the H-spread, the length to the lower hinge and upper hinge look to be relatively symmetric.</p>
 <p>As we tried to examine any patterns regarding outliers, we used time series line graphs to introduce time as another variable.</p>
 <p><img src="finalproj_files/figure-html/qplot57-1.png" width="1920" /></p>
 <p>By looking how the daily number of account owners for a particular stock changed over time, we can easily see a significant increase around the March-April 2020 timeframe. Visually we can see that all of the outliers at significantly large number of account owners are during the later end of the available dataset near summer 2020. This is consistent with what we observed in the boxplot and histogram where for the majority of time period (from Aug 2018 to March 2020), the daily number of account owners was relatively stable within a tight range.</p>
-<p>Next, we plot the stock prices of the top 5 most popular companies to see if there’s any relationship between the stock price and number of account owners.
-<img src="finalproj_files/figure-html/qplot59-1.png" width="1920" /></p>
+<p>Next, we plot the stock prices of the top 5 most popular companies to see if there’s any relationship between the stock price and number of account owners.</p>
+<p><img src="finalproj_files/figure-html/qplot59-1.png" width="1920" /></p>
 <p>We also looked at the market capitalization of these 5 companies. The market capitalization measures the size of the company’s outstanding equity value. It is calculated by stock price multiplied by the number of shares outstanding.</p>
 <p><img src="finalproj_files/figure-html/qplot58-1.png" width="1920" /></p>
 <p>Since stock price level is an input in the market capitalization, it is unsurprisingly that the daily market cap of the companies follow a similar shape to the stock price. In this graph, Apple has a higher market cap than Microsoft despite Microsoft having a higher stock price. This trend is not statistically meaningful because Microsoft simply has lower number of shares outstanding.</p>

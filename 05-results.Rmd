@@ -4,6 +4,18 @@ The main focus of our analysis will examine Robintrack's users stock holding of 
 
 ## Average Ownership by industry
 
+```{r,message= FALSE}
+addUnits <- function(n) {
+  labels <- ifelse(n < 1000, n,  # less than thousands
+  ifelse(n < 1e6, paste0(round(n/1e3), 'k'),  # in thousands
+  ifelse(n < 1e9, paste0(round(n/1e6), 'M'),  # in millions
+ ifelse(n < 1e12, paste0(round(n/1e9), 'B'), # in billions
+  ifelse(n < 1e15, paste0(round(n/1e12), 'T'), 'too big!')))))
+  return(labels)
+}
+
+```
+
 ```{r}
 library(GGally)
 library(ggplot2)
@@ -18,14 +30,17 @@ In order explore the shifts in the most popular industries between 2018-2020, we
 
 ```{r qplot51, fig.width=10, fig.height=6,message=FALSE}
 library(tidyverse)
+library(scales)
+
 cleveland$Year<-as.factor(cleveland[,'Year'])
 # create the plot
 ggplot(cleveland, aes(x = avg_users_holding, y =fct_reorder2(Symbol, Year == '2020', 
                                  avg_users_holding, .desc=FALSE),color = Year)) +
     geom_point() +
+    scale_x_continuous(breaks = scales::pretty_breaks(n = 5),label=addUnits) + 
     xlab("\nAverage users holding") +
     ylab("Industry\n") +
-    ggtitle("Average yearly Stock Holding by industry\nAugust 2018 - August 2020") 
+    ggtitle("Average yearly Stock Holding by industry\nAugust 2018 - August 2020") + theme_gray(16)
 ```
 
 Some insights that we can extract from the above plot are:
@@ -101,7 +116,11 @@ library(scales)
 group1 <- df2 %>% filter(Symbol %in% very_pop) 
 group1$Symbol <- factor(group1$Symbol, levels = very_pop)
 
-ggplot(group1, aes(x = users_holding)) + geom_histogram(bins=50) + facet_wrap(~Symbol)+ theme(axis.text.x = element_text(size = 8)) + scale_x_continuous(label=comma) + labs(title = "Account Ownership Distribution of Top 5 Most Popular Companies", x = "Number of Account Who Own the Stock") 
+ggplot(group1, aes(x = users_holding)) + 
+  geom_histogram(bins=50) + 
+  facet_wrap(~Symbol) + 
+  scale_x_continuous(label=addUnits) + 
+  labs(title = "Account Ownership Distribution of Top 5 Most Popular Companies", x = "Number of Account Who Own the Stock") + theme_gray(16)
 ```
 
 Looking at the individual account ownership of the top 5 most popular companies, we can see that they are all right skewed distribution. There is one peak with high frequency for <= 250k account owners. For companies like Disney, Ford, and General Electric there is a second peak near the highest number of accounts (750k-1mm) but that peak is much smaller the first at the lower end. This makes intuitive sense as the second peak of high number of accounts would result in an elevated average account ownership putting in on the most popular list. The more popular companies (such as F and GE) tend to have wider min-to-max ranges than the less popular ones.
@@ -110,7 +129,13 @@ Next, we use boxplots to show the distribution of account ownership of the indiv
 
 ```{r, message = FALSE}
 
-df2 %>% filter(Symbol %in% very_pop) %>%  ggplot(aes(x = reorder(Symbol, -users_holding, median), y = users_holding)) + geom_boxplot() + xlab("Top 5 Most Popular Companies") + ylab ("Number of Accounts Who Own the Stock") + stat_summary(fun = mean, geom = "point", shape = 1, size = 3)
+df2 %>% filter(Symbol %in% very_pop) %>%  
+  ggplot(aes(x = reorder(Symbol, -users_holding, median), y = users_holding)) + 
+  geom_boxplot() + 
+  scale_y_continuous(label=addUnits) +
+  xlab("Top 5 Most Popular Companies") + 
+  ylab ("Number of Accounts Who Own the Stock") + 
+  stat_summary(fun = mean, geom = "point", shape = 1, size = 3)
 
 ```
 
@@ -136,28 +161,33 @@ very_popular_data %>%
   geom_line() +  
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
   ggtitle("How the Number of Account Owners Changed for the Most 5 Popular Companies\nAugust 2018 - August 2020") +
-    ylab("Number of Account Who Own the Stock")+
-  theme(plot.title=element_text(size=22),
+  ylab("Number of Account Who Own the Stock\n")+ 
+  xlab("") +  
+  scale_y_continuous(label=addUnits) +
+  theme(plot.title=element_text(size=26),
           axis.text=element_text(size=19),
-         axis.title=element_text(size=18),
-         legend.title = element_text( size = 16),
-        legend.text = element_text(size = 14))
+         axis.title=element_text(size=21),
+         legend.title = element_text( size = 20),
+        legend.text = element_text(size = 18))
 ```
 
 By looking how the daily number of account owners for a particular stock changed over time, we can easily see a significant increase around the March-April 2020 timeframe. Visually we can see that all of the outliers at significantly large number of account owners are during the later end of the available dataset near summer 2020. This is consistent with what we observed in the boxplot and histogram where for the majority of time period (from Aug 2018 to March 2020), the daily number of account owners was relatively stable within a tight range. 
 
 Next, we plot the stock prices of the top 5 most popular companies to see if there's any relationship between the stock price and number of account owners.
+
 ```{r qplot59,  fig.width=20, fig.height=10, message=FALSE}
 very_popular_data %>%
   ggplot( aes(x=Date, y=Adj.Close, group=Symbol, color=Symbol)) +
   geom_line() +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") +
   ggtitle("Daily stock price for the most popular S&P500 companies\nAugust 2018 - August 2020") +
-  theme( plot.title=element_text(size=22),
+  xlab("") +  
+  scale_y_continuous(label=addUnits) +
+  theme(plot.title=element_text(size=26),
           axis.text=element_text(size=19),
-         axis.title=element_text(size=18),
-         legend.title = element_text( size = 16),
-        legend.text = element_text(size = 14))
+         axis.title=element_text(size=21),
+         legend.title = element_text( size = 20),
+        legend.text = element_text(size = 18))
 ```
 
 We also looked at the market capitalization of these 5 companies. The market capitalization measures the size of the company's outstanding equity value. It is calculated by stock price multiplied by the number of shares outstanding.
@@ -168,11 +198,14 @@ very_popular_data %>%
   geom_line() +  
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
   ggtitle("Daily Market Cap for the most popular S&P500 companies\nAugust 2018 - August 2020")  +
-  theme( plot.title=element_text(size=22),
+  xlab("") +
+  ylab("Market Cap") +  
+  scale_y_continuous(label=addUnits) +
+  theme(plot.title=element_text(size=26),
           axis.text=element_text(size=19),
-         axis.title=element_text(size=18),
-         legend.title = element_text( size = 16),
-        legend.text = element_text(size = 14))
+         axis.title=element_text(size=21),
+         legend.title = element_text( size = 20),
+        legend.text = element_text(size = 18))
 ```
 
 Since stock price level is an input in the market capitalization, it is unsurprisingly that the daily market cap of the companies follow a similar shape to the stock price. In this graph, Apple has a higher market cap than Microsoft despite Microsoft having a higher stock price. This trend is not statistically meaningful because Microsoft simply has lower number of shares outstanding.
@@ -187,9 +220,12 @@ very_popular_data %>%
   geom_line() + 
   ggtitle("Daily VIX\nAugust 2018 - August 2020") +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
-  theme( plot.title=element_text(size=11),
+  ylab("VIX adjusted close\n") +
+  xlab("") +  
+  scale_y_continuous(label=addUnits) +
+  theme( plot.title=element_text(size=14),
           axis.text=element_text(size=9),
-         axis.title=element_text(size=8),
+         axis.title=element_text(size=12),
          legend.title = element_text( size = 6),
         legend.text = element_text(size = 5))
 ```
@@ -209,7 +245,7 @@ mosaic <-read.csv('docs/data/results/mosaic.csv')
 mosaic$Founded_range<-factor(mosaic$Founded_range, levels=c("1784-1892","1894-1952","1954-2019"))
 mosaic$popularity<-factor(mosaic$popularity, levels=c("not_popular","normal","very_popular"))
 
-colors = c("grey95", "aliceblue", "cornflowerblue")
+colors = hue_pal()(3)
 vcd::mosaic(Founded_range~popularity, direction = c("v","h") ,mosaic,
             highlighting_fill = colors, gp_varnames = gpar(fontsize = 10, fontface = 1),gp_labels = gpar(fontsize = 8))
 ```

@@ -158,17 +158,20 @@ very_popular_data$Date <- as.Date(very_popular_data$Date)
 # Plot
 very_popular_data %>%
   ggplot( aes(x=Date, y=users_holding, group=Symbol, color=Symbol)) +
-  geom_line() +  
+  geom_line() + 
+  geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
+  annotate("text", x =ymd("2020-01-21"), y =100000,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
+  scale_y_continuous(label=addUnits) +
   ggtitle("How the Number of Account Owners Changed for the Most 5 Popular Companies\nAugust 2018 - August 2020") +
   ylab("Number of Account Who Own the Stock\n")+ 
   xlab("") +  
   scale_y_continuous(label=addUnits) +
-  theme(plot.title=element_text(size=26),
+  theme(plot.title=element_text(size=30),
           axis.text=element_text(size=19),
-         axis.title=element_text(size=21),
-         legend.title = element_text( size = 20),
-        legend.text = element_text(size = 18))
+         axis.title=element_text(size=26),
+         legend.title = element_text( size = 22),
+        legend.text = element_text(size = 20))
 ```
 
 By looking how the daily number of account owners for a particular stock changed over time, we can easily see a significant increase around the March-April 2020 timeframe. Visually we can see that all of the outliers at significantly large number of account owners are during the later end of the available dataset near summer 2020. This is consistent with what we observed in the boxplot and histogram where for the majority of time period (from Aug 2018 to March 2020), the daily number of account owners was relatively stable within a tight range. 
@@ -179,16 +182,18 @@ Next, we plot the stock prices of the top 5 most popular companies to see if the
 very_popular_data %>%
   ggplot( aes(x=Date, y=Adj.Close, group=Symbol, color=Symbol)) +
   geom_line() +
+  geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
+  annotate("text", x =ymd("2020-01-21"), y =30.75,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") +
   ggtitle("Daily stock price for the most popular S&P500 companies\nAugust 2018 - August 2020") +
   xlab("") +
   ylab("Adj. Close Price\n") +
   scale_y_continuous(label=addUnits) +
-  theme(plot.title=element_text(size=26),
+  theme(plot.title=element_text(size=30),
           axis.text=element_text(size=19),
-         axis.title=element_text(size=21),
-         legend.title = element_text( size = 20),
-        legend.text = element_text(size = 18))
+         axis.title=element_text(size=26),
+         legend.title = element_text( size = 22),
+        legend.text = element_text(size = 20))
 ```
 
 We also looked at the market capitalization of these 5 companies. The market capitalization measures the size of the company's outstanding equity value. It is calculated by stock price multiplied by the number of shares outstanding.
@@ -196,17 +201,19 @@ We also looked at the market capitalization of these 5 companies. The market cap
 ```{r qplot58, fig.width=20, fig.height=11,message=FALSE}
 very_popular_data %>%
   ggplot( aes(x=Date, y=Mcap, group=Symbol, color=Symbol)) +
-  geom_line() +  
+  geom_line() +
+  geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
+  annotate("text", x =ymd("2020-01-21"), y = 400000,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
   ggtitle("Daily Market Cap for the most popular S&P500 companies\nAugust 2018 - August 2020")  +
   xlab("") +
   ylab("Market Cap") +  
   scale_y_continuous(label=addUnits) +
-  theme(plot.title=element_text(size=26),
+  theme(plot.title=element_text(size=30),
           axis.text=element_text(size=19),
-         axis.title=element_text(size=21),
-         legend.title = element_text( size = 20),
-        legend.text = element_text(size = 18))
+         axis.title=element_text(size=26),
+         legend.title = element_text( size = 22),
+        legend.text = element_text(size = 20))
 ```
 
 Since stock price level is an input in the market capitalization, it is unsurprisingly that the daily market cap of the companies follow a similar shape to the stock price. In this graph, Apple has a higher market cap than Microsoft despite Microsoft having a higher stock price. This trend is not statistically meaningful because Microsoft simply has lower number of shares outstanding.
@@ -219,6 +226,8 @@ Lastly, we looked at the VIX index which measure the market-implied pricing for 
 very_popular_data %>%
   ggplot( aes(x=Date, y=vix_Adj_close)) +
   geom_line() + 
+  geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
+  annotate("text", x =ymd("2020-01-21"), y =10,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 4) +
   ggtitle("Daily VIX\nAugust 2018 - August 2020") +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
   ylab("VIX adjusted close\n") +
@@ -226,7 +235,7 @@ very_popular_data %>%
   scale_y_continuous(label=addUnits) +
   theme( plot.title=element_text(size=14),
           axis.text=element_text(size=9),
-         axis.title=element_text(size=12),
+         axis.title=element_text(size=14),
          legend.title = element_text( size = 6),
         legend.text = element_text(size = 5))
 ```

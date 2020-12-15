@@ -299,11 +299,17 @@ vcd::mosaic(popularity~Founded_range, direction = c("v","h") ,mosaic,
             highlighting_fill = colors, gp_varnames = gpar(fontsize = 10, fontface = 1),gp_labels = gpar(fontsize = 8))
 ```
 
-In the above mosaic plot we can see that there is a correlation between the age of a company and its popularity. More specifically:
+Key takeaways from the above plot:
 
-* We can see that for the less popular companies there is an equal amount of observations across all three founding ranges.
+* When comparing the old and the medium founding range companies (`1784-1892`and `1894-1952`) there seems to be a positive correlation with popularity. Companies that were founded in `1894-1952` are more likely to tbelong to the `normal` and the `very_popular` categories compared to companies founded in `1784-1892`.
 
-* When comparing the normal and the less popular companies we can see an increase in popularity as the founding date becomes more recent.
+* However, this positive correlation trend is broken when we look at the most recently founded companies. This group contains companies that have the most `normal` popularity companies across all foudning ranges groups
+
+* Most of the companies are in the `not_popular` category. It seems that for this category it doesn't really matter when the company was founded.
+
+
+
+
 
 * Moreover, even though the oldest copanies are the ones that appear the least across the very popular companies, we can see that the medium founding range companies (`1894-1952`) are the the most across the `very_popular`.
 

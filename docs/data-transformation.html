@@ -24,7 +24,7 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
-<meta name="date" content="2020-12-04" />
+<meta name="date" content="2020-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,7 +74,7 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a><ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#raw-data"><i class="fa fa-check"></i><b>3.1</b> Raw Data</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#raw-data"><i class="fa fa-check"></i><b>3.1</b> Raw data</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="data-transformation.html"><a href="data-transformation.html#robintrack-data"><i class="fa fa-check"></i><b>3.1.1</b> Robintrack data</a></li>
 <li class="chapter" data-level="3.1.2" data-path="data-transformation.html"><a href="data-transformation.html#sp500-stock-prices-and-volume"><i class="fa fa-check"></i><b>3.1.2</b> S&amp;P500 stock prices and volume</a></li>
 <li class="chapter" data-level="3.1.3" data-path="data-transformation.html"><a href="data-transformation.html#vix-and-mcap"><i class="fa fa-check"></i><b>3.1.3</b> VIX and Mcap</a></li>
@@ -98,9 +98,11 @@
 <li class="chapter" data-level="4.5" data-path="missing-values.html"><a href="missing-values.html#dealing-with-missing-values"><i class="fa fa-check"></i><b>4.5</b> Dealing with missing values</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#average-ownership-per-year-by-industry"><i class="fa fa-check"></i><b>5.1</b> Average ownership per year by industry</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#exploring-the-relationship-of-founding-date-vs-popularity-level"><i class="fa fa-check"></i><b>5.2</b> Exploring the relationship of founding date vs popularity level</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#a-deeper-look-into-the-very_popular-companies"><i class="fa fa-check"></i><b>5.3</b> A deeper look into the <code>very_popular</code> companies</a></li>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#important-terms"><i class="fa fa-check"></i><b>5.1</b> Important terms</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average ownership by industry</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#ownership-by-company"><i class="fa fa-check"></i><b>5.3</b> Ownership by company</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#ownership-of-the-very_popular-companies"><i class="fa fa-check"></i><b>5.4</b> Ownership of the <code>very_popular</code> companies</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#ownership-vs-founding-year"><i class="fa fa-check"></i><b>5.5</b> Ownership vs Founding Year</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -128,17 +130,19 @@
 <p>In this Chapter we will go over the data transformations that we performed in order to combine the different data sources into one.</p>
 <p>We performed the data cleaning in four Python notebooks that can be found under the <code>docs/data/preprocessing</code> folder. Here we will provide an overview of what we have done. Please take a look at the notebooks if you need further detail.</p>
 <div id="raw-data" class="section level2">
-<h2><span class="header-section-number">3.1</span> Raw Data</h2>
+<h2><span class="header-section-number">3.1</span> Raw data</h2>
 <p>In this section we will briefly describe how we transformed the raw data</p>
 <div id="robintrack-data" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Robintrack data<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h3>
+<h3><span class="header-section-number">3.1.1</span> Robintrack data</h3>
 <p>As we mentioned in the Data Sources section, we got the number of users holding each company stock per day from Robintrack.</p>
 <p>The Robintrack data came in a folder that contained a csv for each company ticker. We read each csv, selected the data for August 2018 - August 2020 and combined them to a dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>users_holding</code>.</p>
+<p><em>Code can be found here <code>data/preprocessing/Robintrack.ipynb</code>.</em></p>
 </div>
 <div id="sp500-stock-prices-and-volume" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> S&amp;P500 stock prices and volume<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h3>
+<h3><span class="header-section-number">3.1.2</span> S&amp;P500 stock prices and volume</h3>
 <p>Furthermore, we got the daily Closing Price and the total Volume traded between August 2018 - August 2020 for each company by scraping yahoo finance.</p>
 <p>More specifically, for each of the S&amp;P500 tickers, we used the python package <code>pandas_datareader</code> to read those values from yahoo finance for the range of dates that we are interested in. We combined those dataframes and resulting in one large dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>Adj.Close</code> and <code>Volume</code>.</p>
+<p><em>Code can be found here <code>data/preprocessing/sp500.ipynb</code>.</em></p>
 </div>
 <div id="vix-and-mcap" class="section level3">
 <h3><span class="header-section-number">3.1.3</span> VIX and Mcap</h3>
@@ -149,16 +153,17 @@
 <p>We got both each companies characteristics from Bloomberg Terminal. Some characteristics that we are particularly interested in are <code>Industry</code> and <code>Year_Founded</code>.</p>
 </div>
 <div id="combination-of-the-above" class="section level3">
-<h3><span class="header-section-number">3.1.5</span> Combination of the above<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h3>
+<h3><span class="header-section-number">3.1.5</span> Combination of the above</h3>
 <p>We combined everything together in one dataframe. We performed an outer join on <code>Date</code> and <code>Symbol</code> which resulted in our final dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>users_holding</code>,<code>Adj.Close</code>, <code>Volume</code>, <code>Mcap</code>, <code>vix_Adj_close</code>.</p>
 <p>We also performed a few sanity checks such as making sure that we are only keeping the trading days between August 2018 - August 2020 and that for each date we have all tickers.</p>
+<p><em>Code can be found here: <code>data/preprocessing/combine.ipynb</code></em></p>
 </div>
 </div>
 <div id="further-preprocessing" class="section level2">
 <h2><span class="header-section-number">3.2</span> Further preprocessing</h2>
 <p>We decided further combine and preprocessing all of the different dataframes in Python.</p>
 <div id="clustering" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Clustering<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></h3>
+<h3><span class="header-section-number">3.2.1</span> Clustering</h3>
 <div id="clustering-on-users_holding" class="section level4">
 <h4><span class="header-section-number">3.2.1.1</span> Clustering on <code>users_holding</code></h4>
 <p>We measure a stock’s popularity by averaging amount of user’s holding across 2018-2020. Intuitively a company with a high average stock holding will be a popular company among Robintrack’s users and vise verse.</p>
@@ -186,11 +191,13 @@ Therefore, we have defined the following popularity ranges:</p>
 <li><p>cluster <strong>1</strong>: <code>1784-1892</code>(n=247)</p></li>
 <li><p>cluster <strong>2</strong>: <code>1954-2019</code>(n=798)</p></li>
 </ul>
+<p><em>Code can be found here: <code>data/preprocessing/Results_preprocessing.ipynb</code>.</em></p>
 </div>
 </div>
 </div>
 <div id="results-dataframes" class="section level2">
 <h2><span class="header-section-number">3.3</span> <code>Results</code> dataframes</h2>
+<p>Description of the final dataframes that we use in <code>Results</code> section</p>
 <div id="data.csv" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> <code>data.csv</code></h3>
 <p>-<code>Date</code>: date</p>
@@ -215,18 +222,10 @@ Therefore, we have defined the following popularity ranges:</p>
 <p>-<code>founded_range</code>: the founding range as defined in the clustering section</p>
 <p>-<code>popularity</code>: the popularity level as defined in the clustering section</p>
 <p>-<code>freq</code>: how many times the above combination of values have appeared in the dataset</p>
+<p><em>Files can be found here <code>data/results</code>.</em></p>
 
 </div>
 </div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>Code can be found in Notebook <code>docs/data/preprocessing/Robintrack.ipynb</code><a href="data-transformation.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Code can be found in Notebook <code>docs/data/preprocessing/sp500.ipynb</code>)<a href="data-transformation.html#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Code can be found in Notebook <code>docs/data/preprocessing/combine.ipynb</code>)<a href="data-transformation.html#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>Code can be found in Notebook <code>docs/data/preprocessing/Results_preprocessing.ipynb</code><a href="data-transformation.html#fnref4" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 

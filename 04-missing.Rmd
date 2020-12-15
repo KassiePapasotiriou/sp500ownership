@@ -9,7 +9,7 @@ library(GGally)
 library(ggplot2)
 library(palmerpenguins)
 
-data <-read.csv('docs/data/missing/final_df.csv')
+data <-read.csv('data/missing/final_df.csv')
 ```
  
 In order to start exploring missing values we will look at the ratio of the number of NAs in each column:

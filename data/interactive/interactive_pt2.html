@@ -26,9 +26,10 @@ select:focus {
 }
 .sortCheck {
 	float:right;
-	font-size: 15px;
-	margin-top:-35px;
-	margin-right:-300px;
+	font-size: 13px;
+	margin-top:-622px;
+	margin-right:360px;
+	font-weight: bold;
 
 
 }
@@ -164,8 +165,8 @@ var data3 = [
 
 let formatValue = d3.format(",.0f");
 
-let margin = {top: 35, right: 185, bottom: 60, left: 80},
-    width = 900 - margin.left - margin.right,
+let margin = {top:35, right: 15, bottom: 60, left: 70},
+    width = 700 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
 let x = d3.scaleBand().rangeRound([0, width]).padding(0.3),
@@ -185,12 +186,13 @@ let sideTextX = width + 30,
 	sideTextY = -height + height;
 	
 // Sum of value
+/*
 g.append("text")
 	.attr("fill","#555")
 	.attr("font-weight","bold")
 	.attr("font-size",15)
-	.attr("x", sideTextX)
-	.attr("y", sideTextY)
+	.attr("x", sideTextX )
+	.attr("y", 0)
 	.text("Accumulated users ")
 g.append("text").attr("id","totalValue")
 	.attr("fill","#555")
@@ -211,6 +213,7 @@ g.append("text").attr("id","avgValue")
 	.attr("font-size",15)
 	.attr("x", sideTextX)
 	.attr("y", sideTextY + 60);
+*/
 	
 g.append("g")
     .attr("class", "axis axis--x")
@@ -242,7 +245,7 @@ g.selectAll(".axis.grid--y").transition()
 g.append('text')
 	.attr('fill', '#555')
 	.attr('font-size', 16)
-	.attr('x', 400)
+	.attr('x', width/3)
 	.attr('y', 550)
 	.text('Top 21 most popular companies');
 
@@ -393,7 +396,8 @@ function update() {
 		  .data(data, function(d){
 		    return d.group;
 		  });
-		  
+		
+		//format text on rectangles  
 		textUpdate = textUpdate.enter()
   		.append("text")
   		.attr("class", "textEnter") // Enter data reference
@@ -409,7 +413,7 @@ function update() {
 				})
 			// Update text value
 			.text( function(d) { 
-				return formatValue(d[catInt]); 
+				return d3.format(".3s")(d[catInt]); 
 			})
 			.attr("x", function(d) { 
   			return x(d.group) + x.bandwidth()/2; 

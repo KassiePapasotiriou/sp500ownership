@@ -1,2 +1,10 @@
 # Interactive component
 
+We created an interactive bar graph that displays the yearly average ownership of the top 21 most popular stocks between August 2018 - August 2020. You can select the year to display the corresponding average ownership of that year. While the graph originally displays the top 21 most popular stocks in order of descending popularity over the entire time horizon, you can toggle a "Sort Companies" option that will sort the companies in order of popularity of that specific year. This allows the user to see how popularity of these companies compare in a specific year relatively to the popularity over the entire time horizon.  
+
+
+<iframe src="docs\data\interactive\interactive_pt2.html" width="750" height="770"></iframe>
+
+We use the link http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&preview as reference template to help build our graph. 
+
+Looking at the interactive graph, we can see that stocks in COVID-sensitive industries had little interest until 2020.

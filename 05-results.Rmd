@@ -346,7 +346,7 @@ mosaic <-read.csv('data/results/mosaic.csv')
 mosaic$Founded_range<-factor(mosaic$Founded_range, levels=c("1784-1892","1894-1952","1954-2019"))
 mosaic$popularity<-factor(mosaic$popularity, levels=c("not_popular","normal","very_popular"))
 
-colors = c("grey90", "aliceblue", "cornflowerblue")
+colors = c("#deebf7", "#9ecae1", "#3182bd")
 vcd::mosaic(popularity~Founded_range, direction = c("v","h") ,mosaic,
             highlighting_fill = colors, gp_varnames = gpar(fontsize = 10, fontface = 1),gp_labels = gpar(fontsize = 8))
 ```

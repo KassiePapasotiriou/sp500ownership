@@ -240,6 +240,7 @@ Some observations from the above plot:
 * Interestingly enough, even though Disney in August 2020 had more investors than Apple and Microsoft, its price did not pick up sharply in a corresponding manner. The price as of August 2020 was not that different from its price as of August 2018 prices.
 
 * From August 2018 to November 2020, Disney's and Microsoft's stock price was following similar patterns. However, from  November 2020 onward, Microsoft had an increase in price whereas Disney saw a drop in price. In August 2020 Microsoft's stock price was almost twice as much as Disney's. 
+
 * Disney at the end of April 2019 announced plans to launch its own streaming video platform. We can therefore see a slight increase in both stock price and number of investors at that time. However, this trend ended due to the pandemic. 
 
 In order to be able to better compare the stock prices among those companies, we standardized all prices to be 100 in August 2018. Our goal is to see their relative increases and decreases till August 2020.

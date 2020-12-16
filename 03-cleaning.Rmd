@@ -109,14 +109,14 @@ Description of the final dataframes that we use in `Results` section
 
 -`Year`: year
 
--`Symbol`: a companies ticker
+-`Symbol`: a company's ticker
 
 -`avg_users_holding`: average number of users holding that stock on that year
 
 
 ### `mosaic.csv`
 
--`Symbol_industry`: the industry
+-`Symbol_industry`: the company's industry
 
 -`founded_range`: the founding range as defined in the clustering section
 

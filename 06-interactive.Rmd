@@ -6,5 +6,5 @@ This allows the reader to see how the number of users holding the stocks (ie met
 
 <iframe src="data/interactive/interactive_pt2.html" width="770" height="770"></iframe>
 
-We use the link http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&preview as reference template to help build our graph. 
+We use the [link](https:// http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&preview/data-download)  as reference template to help build our graph.
 

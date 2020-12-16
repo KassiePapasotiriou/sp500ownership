@@ -357,7 +357,7 @@ Key takeaways from the above plot:
 
 * However, this positive correlation trend is broken when we look at the most recently founded companies. This group has the most `normal` popularity companies across all founding range groups. 
 
-* Companies that were most recently founded have the least count in the `very_popular` category. We would have been able to identify a positive correlation between how recently a company was founded and how popular the company is among Robinhood users. However this trend is broken in the `1954-2019` companies.
+* Companies that were most recently founded have the least count in the `very_popular` category. We would have been able to identify a positive correlation between how recently a company was founded and how popular the company is among Robinhood users. However this trend is broken in the `1954-2019` companies. This may be due to the limited number of companies in the `very_popular` category making it difficult to draw meaningful conclusions.
 
 * Most of the companies are in the `not_popular` category. It seems that for this category it doesn't really matter when the company was founded.
 

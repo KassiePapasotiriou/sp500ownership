@@ -1,12 +1,12 @@
 # Results
 
-The main focus of our analysis will examine Robihood's users stock holding of the S&P500 companies between August 2018 - August 2020. We will explore how price, market cap, industry and founding year affect user's holding.
+The main focus of our analysis will examine Robinhood's users stock holding of the S&P500 companies between August 2018 - August 2020. We will explore how price, market cap, industry and founding year affect user's holding.
 
 ## Important terms
 
-We quantify how **popular** a company is by how many Robihood users hold its stock. More specifically, as mentioned in the data transformation section, we measure a stock's popularity by averaging the amount of users holding across 2018-2020. 
+We quantify how **popular** a company is by how many Robinhood users hold its stock. We use "users", "user holdings", "accounts", and "investors" interchangeably as a numeric measure of how many Robinhood investors own the stock. More specifically, as mentioned in the data transformation section, we measure a stock's popularity by averaging the number of users holding across 2018-2020. 
 
-Moreover, we assign each company to a popularity group by using KMeans clustering(k=3) for the average user's holding over those 3 years. The three popularity categories are; `not_popular`(n=473), `normal`(n=16) and `very_popular`(n=5). 
+Moreover, we assign each company to a popularity group by using KMeans clustering(k=3) for the average number of user holdings over those 3 years. The three popularity categories are; `not_popular`(n=473), `normal`(n=16) and `very_popular`(n=5). 
 
 As expected, most of the companies in the S&P500 belong in the `not_popular` category and only 5 companies in the `very_popular` category.
 
@@ -34,7 +34,7 @@ cleveland <-read.csv('data/results/Cleveland.csv')
 
 First we explore the average user's stock holding per industry for 2018, 2019 and 2020. 
 
-In order explore the shifts in the most popular industries between 2018-2020, we have created a Cleveland plot for which we have sorted the y axis in descending order for the users holding on 2020.
+In order to explore the shifts in the most popular industries between 2018-2020, we have created a Cleveland plot for which we have sorted the y axis in descending order based on the yearly average users holding of 2020.
 
 ```{r qplot51, fig.width=10, fig.height=6,message=FALSE}
 library(tidyverse)
@@ -48,29 +48,29 @@ ggplot(cleveland, aes(x = avg_users_holding, y =fct_reorder2(Symbol, Year == '20
     scale_x_continuous(breaks = scales::pretty_breaks(n = 5),label=addUnits) + 
     xlab("\nAverage users holding") +
     ylab("Industry\n") +
-    ggtitle("Average yearly stock holing by industry\nAugust 2018 - August 2020") + theme_gray(16)
+    ggtitle("Average yearly stock holding by industry\nAugust 2018 - August 2020") + theme_gray(16)
 ```
 
 Some insights that we can extract from the above plot are:
 
 * We can see a jump in users holding for across all industries between 2018/2019 and 2020. A possible explanation is that retail trading has taken off in 2020 amid the coronavirus downturn that many young traders saw as an entry point into the world of investing.
 
-* This jump is especially evident in the following industries;`Comunication Services`, `Consumer Discretionary`,`Industrials` and `Energy`.
+* This jump is especially evident in the following industries:`Communication Services`, `Consumer Discretionary`,`Industrials` and `Energy`.
 
-* The largest jump in user's holding between 2019 and 2020 was in the `Consumer Discretionary` industry. A possible explanation could be the increased interest of the Amazon (AMZN) stock during the pandemic.
+* The largest jump in user holdings between 2019 and 2020 was in the `Consumer Discretionary` industry. A possible explanation could be the increased interest of the Amazon (AMZN) stock during the pandemic.
 
-* Even though  `Information Technology` industry had the second highest average user's holding in 2018 and 2019, in 2020 it dropped to 4th place.
+* Even though  `Information Technology` industry had the second highest average user holdings in 2018 and 2019, in 2020 it dropped to 4th place.
 
 * Similarly in 2018 & 2019 `Energy` industry was less attractive than `Consumer Staples`. However, in 2020 `Energy` attracted more stock holders.
 
 * Moreover, `Consumer Staples` and  `Industrials` industries have almost the same stock holding between 2018 and 2019. That trend was broken in 2020 when `Industrials` almost tripled in user's holding compared to `Consumer Staples`.
 
-* Another trend  that we observe is that `Utilities`, `Materials` and `Real Estate` have similar average user's holding between 2018 and 2019. On the other hand the rest of the industries have experienced an increase in user's holding between these two years.
+* Another trend  that we observe is that `Utilities`, `Materials` and `Real Estate` have similar average user holdings between 2018 and 2019. On the other hand the rest of the industries have experienced an increase in user holdings between these two years.
 
 
 ## A closer look at the companies
 
-After exploring the trends in users holding by industry, we dig deeper to see if there are any patterns at the individual company level.
+After exploring the trends in user holdings by industry, we dig deeper to see if there are any patterns at the individual company level.
 ```{r, message= FALSE}
 library(forcats)
 library(tidyverse)
@@ -82,7 +82,7 @@ df2 <- na.omit(df)
 df2_summary <- df2 %>% group_by(Symbol) %>% summarise(Avg_holding = mean(users_holding))
 ```
 
-As we already mentioned in the introduction of this section we divide the companies into three categories: very popular, normally popular. In the subsequent data exploration, we focus our attention on the "very popular" category given there are much greater investor attention on these companies.
+We had originally plotted the average user holdings for all of the companies in a Cleveland dot plot but found that it would result in a multi-page plot given the number of companies. While we did not include the plot for formatting purpose, it was visually evident that there were only few companies that drew the investors' attention and had high number of accounts who owned the stock whereas the vast majority of the companies had very little interest from the account owners. This further validated the need to divide the companies as we mentioned earlier into three categories: very popular, normal, and not popular. In the subsequent data exploration, we focus our attention on the "very popular" category given there are much greater investor attention on these companies.
 
 ```{r, message=FALSE}
 library(tidyverse)
@@ -109,9 +109,9 @@ norm_pop <- pull(arrange(df2_normal, desc(Avg_holding)),Symbol)
 as.character(norm_pop)
 ```
 
-In the second tier of "normal"(ly) popular companies are AMD (Advanced Micro Devices), FB (Facebook), BAC (Bank of America), AMZN (Amazon), TWTR (Twitter), NFLX (Netflix), AAL (American Airline), DAL (Delta Airline), DAL (Nvidia), SBUX (Starbucks), T (AT&T), Carnival, Boeing, Coca-Cola, Micron Technology, and Norwegian Cruise Line.  
+In the second tier of "normal"(ly) popular companies are AMD (Advanced Micro Devices), FB (Facebook), BAC (Bank of America), AMZN (Amazon), TWTR (Twitter), NFLX (Netflix), AAL (American Airline), DAL (Delta Airline), DAL (Nvidia), SBUX (Starbucks), T (AT&T), Carnival (CCL), Boeing (BA), Coca-Cola (KO), Micron Technology (MU), and Norwegian Cruise Line (NCLH).  
 
-Most of these companies are also well-established companies, these are additional intuition supporting relatively higher account ownership behind these stocks. Many of these companies were heavily impacted by the pandemic and received intense investor attention in the post-COVID financial market. Travel-related companies such as American Airline, Delta Airline, and Boeing as well as leisure-related companies including Carnival and Norwegian Cruise line had businesses that were negatively impacted by the restriction imposed during the pandemic. This led to their stock prices to plummet considerably. Retail investors perhaps saw this as an opportunity to "buy the dip" and increase account ownership for these companies. 
+Most of these companies are also well-established companies. There are additional intuition supporting relatively higher account ownership behind these stocks. Many of these companies were heavily impacted by the pandemic and received intense investor attention in the post-COVID financial market. Travel-related companies such as American Airline, Delta Airline, and Boeing as well as leisure-related companies including Carnival and Norwegian Cruise line had businesses that were negatively impacted by the restriction imposed during the pandemic. This led to their stock prices to plummet considerably. Retail investors perhaps saw this as an opportunity to "buy the dip" and increase account ownership for these companies. 
 
 Another trend we see is the prevalence of tech companies that are positively impacted by the work-from-home dynamic in the post-COVID world.  Companies such as Advanced Micro Devices and Nvidia produce computing chips and systems for mobile computing. 
 
@@ -120,7 +120,7 @@ As we shall see later in our data exploration, Robinhood saw a significant incre
 
 ## Ownership of the `very_popular` companies
 
-To better understand the distribution shape of the individual account ownership, we first looked at the histogram of the top 5 companies' ownership distribution.
+To better understand the distribution shape of the number of accounts who own the individual stock, we first looked at the histogram of the top 5 companies' investor ownership distribution.
 
 ```{r fig.height= 8, fig.width= 10, message= FALSE}
 library(scales)
@@ -131,12 +131,12 @@ ggplot(group1, aes(x = users_holding)) +
   geom_histogram(bins=50) + 
   facet_wrap(~Symbol) + 
   scale_x_continuous(label=addUnits) + 
-  labs(title = "Account ownership distribution of top 5 most popular companies", x = "Number of accounts who own the stock") + theme_gray(16)
+  labs(title = "User holdings distribution of top 5 most popular companies", x = "Number of accounts who own the stock") + theme_gray(16)
 ```
 
-Looking at the individual account ownership of the top 5 most popular companies, we can see that they are all right skewed distribution. There is one peak with high frequency for <= 250k account owners. For companies like Disney, Ford, and General Electric there is a second peak near the highest number of accounts (750k-1mm) but that peak is much smaller the first at the lower end. This makes intuitive sense as the second peak of high number of accounts would result in an elevated average account ownership putting in on the most popular list. The more popular companies (such as F and GE) tend to have wider min-to-max ranges than the less popular ones.
+Looking at the number of accounts who owned the top 5 most popular companies, we can see that they are all right skewed distributions. There is one peak with high frequency for <= 250k account owners. For companies like Disney, Ford, and General Electric there is a second peak near the highest number of accounts (750k-1mm) but that peak is much smaller the first at the lower end. This makes intuitive sense as the second peak of high number of accounts would result in an elevated number of investors putting in on the most popular list. The more popular companies (such as F and GE) tend to have wider min-to-max ranges than the less popular ones.
 
-Next, we use boxplots to show the distribution of account ownership of the individual stocks within the most popular category. The circle denotes the mean for comparison with the quartiles.
+Next, we use boxplots to show the distribution of number of accounts who owned the individual stocks within the most popular category. The circle denotes the mean for comparison with the quartiles.
 
 ```{r, message = FALSE}
 
@@ -152,7 +152,7 @@ df2 %>% filter(Symbol %in% very_pop) %>%
 
 Looking at the boxplots:
 
-* It is evident that there are considerably number of outliers across all 5 companies.  Almost all of the outliers are skewed toward the high end which would increase the average account ownership across the time period. 
+* It is evident that there are considerably number of outliers across all 5 companies.  Almost all of the outliers are skewed toward the high end which would increase the average number of user holdings across the time period. 
 
 * General Electric and Ford are the most popular among the top 5 companies. However, General Electric has a smaller spread than Ford.
 
@@ -160,7 +160,7 @@ Looking at the boxplots:
 
 * Apple stands out with a much smaller H-spread compared to the other companies suggesting that the number of accounts who owned Apple is concentrated around just below the 250k mark. Within the H-spread, the length to the lower hinge and upper hinge look to be relatively symmetric. 
 
-Next we used time series line graphs of price, Market Cap and VIX to introduce time as a new perspective to users holding.
+Next we used time series line graphs of price, Market Capitalization and VIX to introduce time as a new perspective to users holding.
 
 ```{r}
 group.colors <- c(AAPL = "#F8766D",DIS = "#A3A500", `F` ="#00BF7D", GE = "#00B0F6", MSFT = "#E76BF3")
@@ -184,11 +184,11 @@ very_popular_data %>%
   ggplot( aes(x=Date, y=users_holding, group=Symbol, color=fct_reorder2(Symbol, Date, users_holding))) +
   geom_line(size=0.8) + 
   geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
-  annotate("text", x =ymd("2020-01-21"), y =100000,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
+  annotate("text", x =ymd("2020-01-21"), y =100000,label =" First COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   scale_colour_manual(values=group.colors) +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
   scale_y_continuous(label=addUnits) +
-  ggtitle("How the number of account owners changed for the most 5 popular companies\nAugust 2018 - August 2020") +
+  ggtitle("How number of investors changed for the most 5 popular companies\nAugust 2018 - August 2020") +
   ylab("Number of accounts who own the stock\n")+ 
   xlab("") +  
   scale_y_continuous(label=addUnits) +
@@ -201,9 +201,9 @@ very_popular_data %>%
      guides(color = guide_legend(override.aes = list(size = 3)) )
 ```
 
-By looking at the daily number of account owners for a particular stock changed over time, we can easily see a significant increase around the March-April 2020 time frame. Visually we can see that all of the outliers at significantly large number of account owners are during the later end of the available dataset near summer 2020. This is consistent with what we observed in the boxplot and histogram where for the majority of time period (from Aug 2018 to March 2020), the daily number of account owners was relatively stable within a tight range. 
+By looking at the daily number of investors for a particular stock over time, we can easily see a significant increase around the March-April 2020 time frame. Visually we can see that all of the outliers at significantly large number of investors are during the later end of the available dataset near summer 2020. This is consistent with what we observed in the boxplot and histogram where for the majority of time period (from Aug 2018 to March 2020), the daily number of account owners was relatively stable within a tight range. 
 
-Next, we plot the stock prices of the top 5 most popular companies to see if there's any relationship between the stock price and number of account owners. We look at both the actual stock value and the normalized stock price.
+Next, we plot the stock prices of the top 5 most popular companies to see if there's any relationship between the stock price and number of investor. We look at both the actual stock price and the normalized stock price.
 
 ```{r qplot59,  fig.width=20, fig.height=10, message=FALSE}
 very_popular_data %>%
@@ -211,12 +211,12 @@ very_popular_data %>%
   scale_colour_manual(values=group.colors) +
   geom_line(size=0.8) +
   geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
-  annotate("text", x =ymd("2020-01-21"), y =30.75,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
+  annotate("text", x =ymd("2020-01-21"), y =30.75,label =" First COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") +
-  ggtitle("Daily stock price for the most popular S&P500 companies\nAugust 2018 - August 2020") +
+  ggtitle("Daily stock price for the top 5 most popular S&P500 companies\nAugust 2018 - August 2020") +
   xlab("") +
-  ylab("Adj. close price\n") +
+  ylab("Stock Price ($)\n") +
   scale_y_continuous(label=addUnits) +
   theme(plot.title=element_text(size=30),
           axis.text=element_text(size=19),
@@ -231,17 +231,16 @@ Some observations from the above plot:
 
 * There is a major drop in stock prices for all `very_popular` companies in March 2020. These prices dropped almost two weeks after the first COVID case in the US.
 
-* Prices recovered from their drop during end of March 2020 and began rising. This increasing trend is in sync with the increasing number of Robinhood users holding these stocks.
+* Prices recovered from their drop during end of March 2020 and began to rise. This price movement is in sync with the increasing number of Robinhood users holding these stocks.
 
-* Price is negatively correlated with the popularity of a stock. For example, Ford and General Electric have the lowest stock prices among the `very_popular`and they have the highest user's holding. This aligns with our intuition that the low price makes these two stocks an attractive investment for Robinhood's users. On the other hand, Microsoft in August 2020 was the most expensive stock to buy and had the lowest amount of users holding it.
+* Within the top 5, stock price is negatively correlated with the popularity of a stock. For example, Ford and General Electric have the lowest stock prices among the `very_popular`and they have the highest user holding. This aligns with our intuition that the low price makes these two stocks an attractive investment for Robinhood users. On the other hand, Microsoft in August 2020 was the most expensive stock to buy and had the lowest amount of users holding it.
 
-* All `very_popular` companie's stock price was dropping during March 2020. After March 2020 stock prices increased. For Microsoft and Apple, stock prices rose so sharply until August 2020 that they were almost double of what they were in August 2018. This rise in price also follows the trend of the increase in numbers of users investing in these companies.
+* All `very_popular` companies's stock price dropped during March 2020. After March 2020 stock prices increased. For Microsoft and Apple, stock prices rose so sharply until August 2020 that they were almost double of what they were in August 2018. This rise in price also follows the trend of the increase in numbers of users investing in these companies.
 
-* Interestingly enough, even though Disney in August 2020 had more user's holding it's stock than Apple and Microsoft, it didn't pick up the sharp increase in price. August 2020 and August 2018 prices are not that different.
+* Interestingly enough, even though Disney in August 2020 had more investors than Apple and Microsoft, its price did not pick up sharply in a corresponding manner. The price as of August 2020 was not that different from its price as of August 2018 prices.
 
-* From August 2018 to November 2020, Disney's and Microsoft's stock price was following similar patterns. However, from  November 2020 onward, Microsoft had an increase in price and Disney a drop in price. In August 2020 Microsoft's stock price was almost twice as much as Disney's. 
-
-* Disney at the end of April 2019 annouced plans to launch its own streaming video platform. We can therefore see users increased interst in Disney stock through an increase both in popularity and price. This trend ended due to the pandemic. 
+* From August 2018 to November 2020, Disney's and Microsoft's stock price was following similar patterns. However, from  November 2020 onward, Microsoft had an increase in price whereas Disney saw a drop in price. In August 2020 Microsoft's stock price was almost twice as much as Disney's. 
+* Disney at the end of April 2019 announced plans to launch its own streaming video platform. We can therefore see a slight increase in both stock price and number of investors at that time. However, this trend ended due to the pandemic. 
 
 In order to be able to better compare the stock prices among those companies, we standardized all prices to be 100 in August 2018. Our goal is to see their relative increases and decreases till August 2020.
 
@@ -254,11 +253,11 @@ tidydf %>%
   geom_line(size=0.8) +
   geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
   
-  annotate("text", x =ymd("2020-01-21"), y =30.75,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
+  annotate("text", x =ymd("2020-01-21"), y =30.75,label =" First COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") +
   ggtitle("Daily normalized stock price for the most popular S&P500 companies\nAugust 2018 - August 2020") +
   xlab("") +
-  ylab("Normalized adj. close price\n") +
+  ylab("Normalized stock price\n") +
   scale_y_continuous(label=addUnits) +
   theme(plot.title=element_text(size=30),
           axis.text=element_text(size=19),
@@ -280,8 +279,9 @@ This plot makes it is easier to compare how these companies stock price changed 
 
 * It is evident from this graph that both Apple and Microsoft have exhibited similar increasing price patterns during August 2018 - August 2020.
 
+* Looking at the relative normalized stock performance, we found little correlation between stock performance and number of investors. For example, Ford has poor stock performance in which the stock price still did not recover back to pre-COVID or Aug 2018 levels. Nonetheless, the number of investors was the highest for Ford. Similarly, Apple had the best stock performance relatively to August 2018 but it only had the 4th highest number of investors by August 2020, possibly due to the high stock price as we previously mentioned.
 
-We also looked at the market capitalization of these 5 companies. The market capitalization measures the size of the company's outstanding equity value. It is calculated by stock price multiplied by the number of shares outstanding.
+We also looked at the market capitalization (market cap) of these 5 companies. The market capitalization measures the size of the company's outstanding equity value. It is calculated by stock price multiplied by the number of shares outstanding.
 
 ```{r qplot58, fig.width=20, fig.height=11,message=FALSE}
 tidydf2 <-very_popular_data %>%group_by(Symbol) %>%mutate(index =round(100*Mcap/Mcap[1], 2)) %>%ungroup()
@@ -291,9 +291,9 @@ tidydf2 %>%
   scale_colour_manual(values=group.colors) +
   geom_line(size=0.8) +
   geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
-  annotate("text", x =ymd("2020-01-21"), y = 200,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
+  annotate("text", x =ymd("2020-01-21"), y = 200,label =" First COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 7) +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
-  ggtitle("Normalized daily Market Cap for the most popular S&P500 companies\nAugust 2018 - August 2020")  +
+  ggtitle("Normalized daily market cap for the most popular S&P500 companies\nAugust 2018 - August 2020")  +
   xlab("") +
   ylab("Market Cap") +  
   scale_y_continuous(label=addUnits) +
@@ -306,18 +306,18 @@ tidydf2 %>%
      guides(color = guide_legend(override.aes = list(size = 3)) )
 ```
 
-Since stock price level is an input in the market capitalization, it is unsurprising that the daily market cap of the companies follow a similar shape to the stock price. In this graph, Apple has a higher market cap than Microsoft despite Microsoft having a higher stock price. This trend is not statistically meaningful because Microsoft simply has lower number of shares outstanding.
+Since stock price level is an input in the market capitalization, it is unsurprising that the daily market cap of the companies follow a similar shape to the stock price. Looking at standardized market capitalization make sense in this case because different companies may have varying number of shares at different points of time which do not typically influence an investor's decision to investor.
 
-From the graphs, we can see that across all 5 companies, the stock price took a hit in March 2020 coinciding with the onset of the pandemic in the US. After the initial drop in price, the stock prices slowly increased back up. It is not consistent whether the stock prices increased back to the pre-pandemic level. One theory for this behavior is that investors using Robinhood took the opportunity to buy stocks when the price was low. Since these 5 companies are well established companies that are unlikely to be negatively impacted by the pandemic, investors increased their ownership of these stocks. They continued to buy these stocks as the stock prices continue to rise as a positive feedback loop to the positive returns on their investments.
+From the graphs, we can see that across all 5 companies, the stock price took a hit in March 2020 coinciding with the onset of the pandemic in the US reducing the corresponding market cap. After the initial drop in price, the stock prices slowly increased back up, increasing the market cap. It is not consistent whether the stock prices increased back to the pre-pandemic level. One theory for this behavior is that investors using Robinhood took the opportunity to buy stocks when the price was low. Since these 5 companies are well established companies that are unlikely to be negatively impacted by the pandemic, investors increased their ownership of these stocks. They continued to buy these stocks as the stock prices continue to rise as a positive feedback loop to the positive returns on their investments.
 
-Lastly, we looked at the VIX index which measure the market-implied pricing for markets volatility. It is an industry standard metric that indicates investor's expectation for uncertainty with a higher number corresponding to higher volatility. 
+Lastly, we looked at the VIX index which measures the market-implied pricing for stock markets volatility. It is an industry standard metric that indicates investor's expectation for uncertainty with a higher number corresponding to higher volatility. 
 
 ```{r qplot60, fig.width=10, fig.height=6, message=FALSE}
 very_popular_data %>%
   ggplot( aes(x=Date, y=vix_Adj_close)) +
   geom_line() + 
   geom_vline(xintercept =ymd("2020-01-21"), color ="blue") +
-  annotate("text", x =ymd("2020-01-21"), y =10,label =" Fist COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 4) +
+  annotate("text", x =ymd("2020-01-21"), y =10,label =" First COVID-19 case in the US\n 1/21/2020", color ="blue",hjust =0, size = 4) +
   ggtitle("Daily VIX\nAugust 2018 - August 2020") +
   scale_x_date(date_labels = "%b-%Y", breaks = "2 month") + 
   ylab("VIX adjusted close\n") +
@@ -333,7 +333,7 @@ very_popular_data %>%
 
 We see that the VIX spiked significantly during the March-April 2020 time frame corresponding to when we saw a drop in stock price. Since the VIX is an indicator across the broader S&P500 index, it suggests that the outsized stock price movement was not limited to just the top 5 companies that we looked at.
 
-It further validates our original intuition that there is a trend of Robinhood investors taking advantage of the market uncertainty in March/April 2020 to buy certain well-established companies. By buying in well known companies with limited adverse impact from COVID-19, the investors can invest their money in a relatively safe stock that preserve capital and buy at a lower price with the hope that the stock returns back to previous levels. The continuation of higher account owners may be both attributed to higher overall accounts on Robinhood as well as positive feedback from subsequent stock performance.
+It further validates our original intuition that there is a trend of Robinhood investors taking advantage of the market uncertainty in March/April 2020 to buy certain well-established companies. By buying in well known companies with limited adverse impact from COVID-19, the investors can invest their money in a relatively safe stock that preserve capital and buy at a lower price with the hope that the stock returns back to previous levels. The continuation of rising number of investors may be both attributed to higher overall number of accounts on Robinhood as well as positive feedback from subsequent stock performance.
 
 ## Ownership vs Founding Year 
 

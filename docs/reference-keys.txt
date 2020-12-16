@@ -23,11 +23,9 @@ interpreting-the-results
 dealing-with-missing-values
 results
 important-terms
-yearly-average-ownership-by-industry
-ownership-by-company
+yearly-average-stock-ownership-by-industry
+a-closer-look-at-the-companies
 ownership-of-the-very_popular-companies
 ownership-vs-founding-year
 interactive-component
 conclusion
-yearly-average-stock-ownership-by-industry
-a-closer-look-at-the-companies

@@ -99,8 +99,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#important-terms"><i class="fa fa-check"></i><b>5.1</b> Important terms</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average ownership by industry</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#ownership-by-company"><i class="fa fa-check"></i><b>5.3</b> Ownership by company</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-stock-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average stock ownership by industry</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#a-closer-look-at-the-companies"><i class="fa fa-check"></i><b>5.3</b> A closer look at the companies</a></li>
 <li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#ownership-of-the-very_popular-companies"><i class="fa fa-check"></i><b>5.4</b> Ownership of the <code>very_popular</code> companies</a></li>
 <li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#ownership-vs-founding-year"><i class="fa fa-check"></i><b>5.5</b> Ownership vs Founding Year</a></li>
 </ul></li>
@@ -136,13 +136,13 @@
 <h3><span class="header-section-number">3.1.1</span> Robintrack data</h3>
 <p>As we mentioned in the Data Sources section, we got the number of users holding each company stock per day from Robintrack.</p>
 <p>The Robintrack data came in a folder that contained a csv for each company ticker. We read each csv, selected the data for August 2018 - August 2020 and combined them to a dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>users_holding</code>.</p>
-<p><em>Code can be found here <code>data/preprocessing/Robintrack.ipynb</code>.</em></p>
+<p><em>Code can be found here: <code>data/preprocessing/Robintrack.ipynb</code>.</em></p>
 </div>
 <div id="sp500-stock-prices-and-volume" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> S&amp;P500 stock prices and volume</h3>
 <p>Furthermore, we got the daily Closing Price and the total Volume traded between August 2018 - August 2020 for each company by scraping yahoo finance.</p>
 <p>More specifically, for each of the S&amp;P500 tickers, we used the python package <code>pandas_datareader</code> to read those values from yahoo finance for the range of dates that we are interested in. We combined those dataframes and resulting in one large dataframe with the following columns: <code>Date</code>, <code>Sybol</code>, <code>Adj.Close</code> and <code>Volume</code>.</p>
-<p><em>Code can be found here <code>data/preprocessing/sp500.ipynb</code>.</em></p>
+<p><em>Code can be found here: <code>data/preprocessing/sp500.ipynb</code>.</em></p>
 </div>
 <div id="vix-and-mcap" class="section level3">
 <h3><span class="header-section-number">3.1.3</span> VIX and Mcap</h3>

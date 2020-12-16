@@ -24,6 +24,7 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
+<meta name="date" content="2020-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +50,8 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 
@@ -97,8 +99,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#important-terms"><i class="fa fa-check"></i><b>5.1</b> Important terms</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average ownership by industry</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#ownership-by-company"><i class="fa fa-check"></i><b>5.3</b> Ownership by company</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-stock-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average stock ownership by industry</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#a-closer-look-at-the-companies"><i class="fa fa-check"></i><b>5.3</b> A closer look at the companies</a></li>
 <li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#ownership-of-the-very_popular-companies"><i class="fa fa-check"></i><b>5.4</b> Ownership of the <code>very_popular</code> companies</a></li>
 <li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#ownership-vs-founding-year"><i class="fa fa-check"></i><b>5.5</b> Ownership vs Founding Year</a></li>
 </ul></li>
@@ -126,7 +128,7 @@
 <div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
 <p>We created an interactive bar graph that displays the yearly average ownership of the top 21 most popular stocks between August 2018 - August 2020. The top 21 stocks are the previously noted stocks in the <code>very_popular</code> and <code>normal</code> categories. You can select the year to display the corresponding yearly average ownership of that year. While the graph originally displays the top 21 most popular stocks in order of descending popularity over the entire time horizon, you can toggle a “Sort Companies” check box that will sort the companies in order of popularity of that specific year.</p>
-<p>This allows the reader to see how the number of users holding the stocks (ie metric for popularity) changed over time. Specifically it gives the reader an ability to compare a stock’s popularity in a given year relatively to the popularity over the entire time horizon. For example, we can see stocks in the COVID-sensitive industries such as AAL (American Airline) had little interest from Robinhood investors in 2019. But in 2020, the number of users holding the stock spiked moving its ranking to much higher in 2020 and overall in the two year horizon. This graph also invites the readers to see how the ranking changed over time.</p>
+<p>This allows the reader to see how the number of users holding the stocks (ie metric for popularity) changed over time. This graph also invites the readers to see how the ranking changed over time. Specifically it gives the reader an ability to compare a stock’s popularity in a given year relatively to the popularity over the entire time horizon. For example, we can see stocks in the COVID-sensitive industries such as AAL (American Airline) had little interest from Robinhood investors in 2019. But in 2020, the number of users holding the stock spiked moving its ranking to much higher in 2020 and overall in the two year horizon. Follow NCLH (Norwegian Cruise Line) through each year to see how its popularity ranking change over time.</p>
 <iframe src="data/interactive/interactive_pt2.html" width="770" height="770">
 </iframe>
 <p>We use the link <a href="http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&amp;preview" class="uri">http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&amp;preview</a> as reference template to help build our graph.</p>

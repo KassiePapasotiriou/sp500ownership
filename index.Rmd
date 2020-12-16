@@ -1,7 +1,7 @@
 --- 
 title: Exploration of the S&P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020
 author: Jingwen Du, Kassiani Papasotiriou
-date: r Sys.Date()
+date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 

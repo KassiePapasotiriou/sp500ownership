@@ -99,8 +99,8 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
 <li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#important-terms"><i class="fa fa-check"></i><b>5.1</b> Important terms</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average ownership by industry</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#ownership-by-company"><i class="fa fa-check"></i><b>5.3</b> Ownership by company</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#yearly-average-stock-ownership-by-industry"><i class="fa fa-check"></i><b>5.2</b> Yearly average stock ownership by industry</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#a-closer-look-at-the-companies"><i class="fa fa-check"></i><b>5.3</b> A closer look at the companies</a></li>
 <li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#ownership-of-the-very_popular-companies"><i class="fa fa-check"></i><b>5.4</b> Ownership of the <code>very_popular</code> companies</a></li>
 <li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#ownership-vs-founding-year"><i class="fa fa-check"></i><b>5.5</b> Ownership vs Founding Year</a></li>
 </ul></li>
@@ -129,17 +129,11 @@
 <h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
 <p>We used three main sources for the data in this research project.</p>
 <ul>
-<li><p>We use the Robintrack website<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> to get the ownership data from Robinhood. This data is pulled from the Robinhood API which provides this data for free to the world. It provides a csv file for each ticker and documents the number of unique accounts holding at least one share of the stock from May 2018 to August 2020. As per the source, the data was collected from the Robinhood API once per hour. We will refer to the number of unique accounts holding at least one share of the stock as “ownership” and is a indicator of a stock’s “popularity” among Robinhood users. This only includes accounts that have normal long shares and do not impact any impacts from options. Note as publicly disclosed on various news articles, Robinhood stopped making this information public in August 2020 so our dataset ends in 8/1/2020.</p></li>
+<li><p>We use the Robintrack <a href="https://robintrack.net/data-download">website</a> to get the ownership data from Robinhood. This data is pulled from the Robinhood API which provides this data for free to the world. It provides a csv file for each ticker and documents the number of unique accounts holding at least one share of the stock from May 2018 to August 2020. As per the source, the data was collected from the Robinhood API once per hour. We will refer to the number of unique accounts holding at least one share of the stock as “ownership” and is a indicator of a stock’s “popularity” among Robinhood users. This only includes accounts that have normal long shares and do not impact any impacts from options. Note as publicly disclosed on various news articles, Robinhood stopped making this information public in August 2020 so our dataset ends in 8/1/2020.</p></li>
 <li><p>In addition, we scrapped Yahoo Finance to get the stock price and trading volume of each company during the corresponding time period. As we will expand on in the “Missing Data” section, we discovered that Yahoo Finance has some bugs where it does not have information over a certain periods of time for certain companies but these glitches were few and far in-between.</p></li>
 <li><p>Lastly, we pulled the market capitalization of all the companies in the S&amp;P500, daily VIX and companies characteristics from Bloomberg during the relevant time period. Both Yahoo Finance and Bloomberg are credited sources commonly used in the finance industry.</p></li>
 </ul>
 
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p><a href="https://robintrack.net/data-download" class="uri">https://robintrack.net/data-download</a><a href="data-sources.html#fnref1" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 

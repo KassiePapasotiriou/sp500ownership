@@ -1,10 +1,10 @@
 # Interactive component
 
-We created an interactive bar graph that displays the yearly average ownership of the top 21 most popular stocks between August 2018 - August 2020. You can select the year to display the corresponding average ownership of that year. While the graph originally displays the top 21 most popular stocks in order of descending popularity over the entire time horizon, you can toggle a "Sort Companies" option that will sort the companies in order of popularity of that specific year. This allows the user to see how popularity of these companies compare in a specific year relatively to the popularity over the entire time horizon.  
+We created an interactive bar graph that displays the yearly average ownership of the top 21 most popular stocks between August 2018 - August 2020. The top 21 stocks are the previously noted stocks in the `very_popular` and `normal` categories.  You can select the year to display the corresponding yearly average ownership of that year. While the graph originally displays the top 21 most popular stocks in order of descending popularity over the entire time horizon, you can toggle a "Sort Companies" check box that will sort the companies in order of popularity of that specific year. 
 
+This allows the reader to see how the number of users holding the stocks (ie metric for popularity) changed over time. This graph also invites the readers to see how the ranking changed over time. Specifically it gives the reader an ability to compare a stock's popularity in a given year relatively to the popularity over the entire time horizon. For example, we can see stocks in the COVID-sensitive industries such as AAL (American Airline) had little interest from Robinhood investors in 2019. But in 2020, the number of users holding the stock spiked moving its ranking to much higher in 2020 and overall in the two year horizon. Follow NCLH (Norwegian Cruise Line) through each year to see how its popularity ranking change over time. 
 
 <iframe src="data/interactive/interactive_pt2.html" width="770" height="770"></iframe>
 
 We use the link http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&preview as reference template to help build our graph. 
 
-Looking at the interactive graph, we can see that stocks in COVID-sensitive industries had little interest until 2020.

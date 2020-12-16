@@ -1,7 +1,7 @@
 --- 
 title: Exploration of the S&P 500 stock ownership in Robinhood between Aug 2018 - Aug 2020
 author: Jingwen Du, Kassiani Papasotiriou
-date: "`r Sys.Date()`"
+date: r Sys.Date()
 site: bookdown::bookdown_site
 ---
 
@@ -10,3 +10,7 @@ site: bookdown::bookdown_site
 For the final project we are looking to explore any patterns in stock ownership on the financial app Robinhood.  Robinhood is an investment app focused on retail investors.  
 
 In particular, retail investors have significantly increased their usage and presence on Robinhood amid the post-COVID market volatility. This spurred heightened focus and attention by news reports and financial institutions to see if there's any insight we can see from these retail involvement in the stock market.
+
+While there are thousands of companies one can invest in on the app, we focus our analysis on the companies in the S&P500 index as of November 2020. The index include 500 of the largest companies listed on the US stock exchanges and is one of the most commonly followed stock indices. Similarly we narrowed our focus to between August 2018 to August 2020 given the availability of data and there's greater activity on Robinhood during the recent years.
+
+In our analysis, we first look across the entire dataset to see if there's any noteworthy pattern based on company industries. Then we examined investor's interest in specific companies and further focused on the ones with the most number of Robinhood users holding its stocks. We also looked at the founding year of companies to gauge whether investors preferred old or new companies. Lastly, we put together an interactive feature that invites the reader to view how companies' popularity ranking changed over the years.

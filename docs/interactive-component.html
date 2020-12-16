@@ -24,7 +24,6 @@
 <meta name="author" content="Jingwen Du, Kassiani Papasotiriou" />
 
 
-<meta name="date" content="2020-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,8 +49,7 @@
 
 
 
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 
@@ -127,11 +125,11 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
-<p>We created an interactive bar graph that displays the yearly average ownership of the top 21 most popular stocks between August 2018 - August 2020. You can select the year to display the corresponding average ownership of that year. While the graph originally displays the top 21 most popular stocks in order of descending popularity over the entire time horizon, you can toggle a “Sort Companies” option that will sort the companies in order of popularity of that specific year. This allows the user to see how popularity of these companies compare in a specific year relatively to the popularity over the entire time horizon.</p>
+<p>We created an interactive bar graph that displays the yearly average ownership of the top 21 most popular stocks between August 2018 - August 2020. The top 21 stocks are the previously noted stocks in the <code>very_popular</code> and <code>normal</code> categories. You can select the year to display the corresponding yearly average ownership of that year. While the graph originally displays the top 21 most popular stocks in order of descending popularity over the entire time horizon, you can toggle a “Sort Companies” check box that will sort the companies in order of popularity of that specific year.</p>
+<p>This allows the reader to see how the number of users holding the stocks (ie metric for popularity) changed over time. Specifically it gives the reader an ability to compare a stock’s popularity in a given year relatively to the popularity over the entire time horizon. For example, we can see stocks in the COVID-sensitive industries such as AAL (American Airline) had little interest from Robinhood investors in 2019. But in 2020, the number of users holding the stock spiked moving its ranking to much higher in 2020 and overall in the two year horizon. This graph also invites the readers to see how the ranking changed over time.</p>
 <iframe src="data/interactive/interactive_pt2.html" width="770" height="770">
 </iframe>
 <p>We use the link <a href="http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&amp;preview" class="uri">http://plnkr.co/edit/BMjxu8bzhu9WR9gtZwDS?p=preview&amp;preview</a> as reference template to help build our graph.</p>
-<p>Looking at the interactive graph, we can see that stocks in COVID-sensitive industries had little interest until 2020.</p>
 
 </div>
             </section>
